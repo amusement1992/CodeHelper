@@ -537,6 +537,7 @@
             // 
             // 替换内容
             // 
+            this.替换内容.Controls.Add(this.tabPage9);
             this.替换内容.Controls.Add(this.tabPage1);
             this.替换内容.Controls.Add(this.tabPage2);
             this.替换内容.Controls.Add(this.tabPage3);
@@ -545,7 +546,6 @@
             this.替换内容.Controls.Add(this.tabPage6);
             this.替换内容.Controls.Add(this.tabPage7);
             this.替换内容.Controls.Add(this.tabPage8);
-            this.替换内容.Controls.Add(this.tabPage9);
             this.替换内容.Location = new System.Drawing.Point(12, 12);
             this.替换内容.Name = "替换内容";
             this.替换内容.SelectedIndex = 0;
@@ -966,7 +966,7 @@
             this.tabPage9.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage9.Size = new System.Drawing.Size(1087, 706);
             this.tabPage9.TabIndex = 8;
-            this.tabPage9.Text = "tabPage9";
+            this.tabPage9.Text = "Excel操作";
             this.tabPage9.UseVisualStyleBackColor = true;
             // 
             // btnOpen
@@ -983,15 +983,16 @@
             // lblResult
             // 
             this.lblResult.AutoSize = true;
-            this.lblResult.Location = new System.Drawing.Point(102, 93);
+            this.lblResult.Location = new System.Drawing.Point(91, 67);
             this.lblResult.Name = "lblResult";
-            this.lblResult.Size = new System.Drawing.Size(0, 12);
+            this.lblResult.Size = new System.Drawing.Size(65, 12);
             this.lblResult.TabIndex = 60;
+            this.lblResult.Text = "暂时没内容";
             // 
             // label33
             // 
             this.label33.AutoSize = true;
-            this.label33.Location = new System.Drawing.Point(20, 67);
+            this.label33.Location = new System.Drawing.Point(26, 67);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(65, 12);
             this.label33.TabIndex = 59;
@@ -1002,9 +1003,9 @@
             this.label34.AutoSize = true;
             this.label34.Location = new System.Drawing.Point(20, 33);
             this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(65, 12);
+            this.label34.Size = new System.Drawing.Size(71, 12);
             this.label34.TabIndex = 58;
-            this.label34.Text = "数据文件：";
+            this.label34.Text = "Excel文件：";
             // 
             // txtFilePath
             // 

@@ -10,7 +10,6 @@ namespace CodeCreate
 {
     public class ExcelHelper
     {
-
         /// <summary>
         /// 字符串必须大写
         /// </summary>
@@ -32,27 +31,6 @@ namespace CodeCreate
         /// <param name="rowIndex"></param>
         /// <param name="cellIndex"></param>
         /// <param name="value"></param>
-        public static void SetCellValue(XSSFSheet sheet, int rowIndex, int cellIndex, string value, ICellStyle cellStyle)
-        {
-            IRow row = sheet.GetRow(rowIndex);
-            if (row == null)
-            {
-                row = sheet.CreateRow(rowIndex);
-            }
-            row.CreateCell(cellIndex).SetCellValue(value);
-
-            if (cellStyle != null)
-            {
-                row.GetCell(cellIndex).CellStyle = cellStyle;
-            }
-        }
-        /// <summary>
-        /// 设置单元格的内容
-        /// </summary>
-        /// <param name="sheet"></param>
-        /// <param name="rowIndex"></param>
-        /// <param name="cellIndex"></param>
-        /// <param name="value"></param>
         public static void SetCellValue(ISheet sheet, int rowIndex, int cellIndex, string value, ICellStyle cellStyle = null)
         {
             IRow row = sheet.GetRow(rowIndex);
@@ -67,6 +45,5 @@ namespace CodeCreate
                 row.GetCell(cellIndex).CellStyle = cellStyle;
             }
         }
-
     }
 }

@@ -440,14 +440,16 @@ where     d.name=" + configModel.MARK + "a order by     a.id,a.colorder";
             return str;
         }
 
-        //打开
+        //选择Excel文件
         private void txtFilePath_Click(object sender, EventArgs e)
         {
             OpenFileDialog file = new OpenFileDialog();
             file.Filter = "Excel|*.xls";//*.xls;
             file.ShowDialog();
             if (!string.IsNullOrWhiteSpace(file.FileName))
+            {
                 this.txtFilePath.Text = file.FileName;
+            }
         }
 
         //生成excel
@@ -473,21 +475,27 @@ where     d.name=" + configModel.MARK + "a order by     a.id,a.colorder";
             {
                 var row = sheet.GetRow(i);
                 if (row == null) continue;
-                var cell = row.GetCell(0);
-                if (cell == null) continue;
-                string str = cell.ToString().Trim();
-                if (string.IsNullOrEmpty(str))
+
+                for (int j = 0; j < 7; j++)
                 {
-                    continue;
+                    var cell = row.GetCell(j);
+                    if (cell == null) continue;
+
+                    string str = cell.ToString().Trim();
+                    if (string.IsNullOrEmpty(str))
+                    {
+                        continue;
+                    }
+                    list_str.Add(str);
                 }
-                list_str.Add(str);
             }
 
             //按照格式生成文档
             Generate(list_str);
 
             this.btnOpen.Visible = true;
-            this.lblResult.Text = "请点击打开按钮，生成的.xls";
+            this.lblResult.Text = "成功！请点击打开按钮，生成的.xls";
+            this.lblResult.ForeColor = Color.Green;
         }
 
         private void Generate(List<string> list_str)
@@ -511,7 +519,19 @@ where     d.name=" + configModel.MARK + "a order by     a.id,a.colorder";
                 rowCount = list_str.Count / 7;
             }
 
-            ISheet sheet = workbook.GetSheetAt(1);
+            if (workbook.NumberOfSheets == 1)
+            {
+                workbook.CreateSheet("生成的Sheet");
+            }
+            ISheet sheet = (HSSFSheet)workbook.GetSheetAt(1);
+
+            //ISheet newSheet = sheet.CopySheet("生成的Sheet", false);
+            //newSheet.SetActive(true);
+
+            //for (int i = 0; i < newSheet.LastRowNum + 1; i++)
+            //{
+            //    newSheet.RemoveRow(newSheet.GetRow(i));
+            //}
 
             int index = 0;
             for (int i = 0; i < rowCount; i++)//行
