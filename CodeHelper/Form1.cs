@@ -440,7 +440,6 @@ where     d.name=" + configModel.MARK + "a order by     a.id,a.colorder";
             return str;
         }
 
-
         //打开
         private void txtFilePath_Click(object sender, EventArgs e)
         {
@@ -449,8 +448,6 @@ where     d.name=" + configModel.MARK + "a order by     a.id,a.colorder";
             file.ShowDialog();
             if (!string.IsNullOrWhiteSpace(file.FileName))
                 this.txtFilePath.Text = file.FileName;
-
-
         }
 
         //生成excel
@@ -486,8 +483,6 @@ where     d.name=" + configModel.MARK + "a order by     a.id,a.colorder";
                 list_str.Add(str);
             }
 
-
-
             //按照格式生成文档
             Generate(list_str);
 
@@ -495,10 +490,8 @@ where     d.name=" + configModel.MARK + "a order by     a.id,a.colorder";
             this.lblResult.Text = "请点击打开按钮，生成的.xls";
         }
 
-
         private void Generate(List<string> list_str)
         {
-
             IWorkbook workbook = new HSSFWorkbook();
 
             if (!Directory.Exists("Data"))
