@@ -1,6 +1,7 @@
 ﻿using CodeCreate;
 using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
+using NPOI.XSSF.UserModel;
 using Prime.DBUtility;
 using System;
 using System.Collections.Generic;
@@ -25,6 +26,7 @@ namespace CodeHelper
 
         private void Form1_Load(object sender, EventArgs e)
         {
+
         }
 
         /// <summary>
@@ -551,6 +553,169 @@ where     d.name=" + configModel.MARK + "a order by     a.id,a.colorder";
         private void btnOpen_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start(Path.Combine(Application.StartupPath, "Data"));
+        }
+
+        /// <summary>
+        /// 选择文件夹
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void textBox17_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog dialog = new FolderBrowserDialog();
+            dialog.Description = "请选择文件路径";
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                if (!string.IsNullOrWhiteSpace(dialog.SelectedPath))
+                {
+                    textBox17.Text = dialog.SelectedPath;
+                }
+
+            }
+
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+
+            timer1.Start();
+
+            //label37.Text = "暂时没内容";
+            var dir = textBox17.Text;
+            if (dir == "")
+            {
+                MessageBox.Show("请先选择文件夹路径");
+                return;
+            }
+            List<GlitzhomeOrder> listModel = new List<CodeHelper.GlitzhomeOrder>();
+
+            foreach (string filePath in System.IO.Directory.GetFiles(dir, "*.xlsx"))
+            {
+                string fileName = "";
+                using (FileStream file = new FileStream(filePath, FileMode.Open, FileAccess.Read))
+                {
+                    XSSFWorkbook workbook;
+                    workbook = new XSSFWorkbook(file);
+                    fileName = file.Name;
+                    file.Close();
+
+                    var sheet = workbook.GetSheetAt(0);
+
+
+                    for (int i = sheet.FirstRowNum; i <= sheet.LastRowNum; i++)
+                    {
+                        var row = sheet.GetRow(i);
+                        if (row == null)
+                        {
+                            continue;
+                        }
+
+                        GlitzhomeOrder model = new GlitzhomeOrder();
+                        model.orderid = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('A'));
+
+                        if (!string.IsNullOrEmpty(model.orderid) && model.orderid == "orderid")
+                        {
+                            continue;
+                        }
+
+                        model.clientpo = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('B'));
+                        model.shipping_instructions = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('C'));
+                        model.comments = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('D'));
+                        model.start_ship_date_value = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('E'));
+                        model.orddate = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('F'));
+                        model.ship_complete = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('G'));
+                        model.shipMethod = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('H'));
+                        model.alternateid = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('I'));
+                        model.ship2name = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('J'));
+                        model.ship2attention = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('K'));
+                        model.ship2address1 = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('L'));
+                        model.ship2address2 = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('M'));
+                        model.ship2address3 = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('N'));
+                        model.ship2city = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('O'));
+                        model.ship2state = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('P'));
+                        model.ship2zip = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('Q'));
+                        model.ship2country = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('R'));
+                        model.ship2isresidential = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('S'));
+                        model.ship2phone = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('T'));
+                        model.ship2email = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('U'));
+                        model.carrier = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('V'));
+                        model.weight = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('W'));
+                        model.num_boxes = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('X'));
+                        model.length = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('Y'));
+                        model.width = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('Z'));
+
+                        model.height = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('A', 'A'));
+                        model.pakage_type = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('B', 'A'));
+                        model.billingoption = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('C', 'A'));
+                        model.ref1 = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('D', 'A'));
+                        model.ref2 = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('E', 'A'));
+                        model.ref3 = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('F', 'A'));
+                        model.ref4 = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('G', 'A'));
+                        model.ref5 = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('H', 'A'));
+                        model.ref6 = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('I', 'A'));
+                        model.tp_accnt = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('J', 'A'));
+                        model.billAddr1 = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('K', 'A'));
+                        model.billAddr2 = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('L', 'A'));
+                        model.billname = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('M', 'A'));
+                        model.billAttention = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('N', 'A'));
+                        model.billCity = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('O', 'A'));
+                        model.billCountry = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('P', 'A'));
+                        model.billPhone = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('Q', 'A'));
+                        model.billState = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('R', 'A'));
+                        model.billZip = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('S', 'A'));
+                        model.fromadd1 = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('T', 'A'));
+                        model.fromcity = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('U', 'A'));
+                        model.fromstate = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('V', 'A'));
+                        model.fromzip = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('W', 'A'));
+                        model.skued = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('X', 'A'));
+                        model.clientskued = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('Y', 'A'));
+                        model.qtyed = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('Z', 'A'));
+
+                        model.alt_nameed = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('A', 'B'));
+                        model.descriptioned = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('B', 'B'));
+
+
+                        model.FileName = fileName;
+                        model.CreateDate = DateTime.Now;
+
+                        listModel.Add(model);
+                    }
+                }
+
+            }
+
+
+            if (listModel.Count > 0)
+            {
+
+                try
+                {
+                    using (MyDBEntities context = new MyDBEntities())
+                    {
+                        context.GlitzhomeOrders.AddRange(listModel);
+                        int i = context.SaveChanges();
+                        if (i > 0)
+                        {
+                            timer1.Stop();
+
+                            MessageBox.Show("成功导入了" + i + "条数据！去数据库看看。");
+
+                            label37.Text = "成功导入了" + i + "条数据！去数据库看看。";
+                            label37.ForeColor = Color.Green;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            int time = int.Parse(label39.Text.ToString()) + 1;
+            label39.Text = time.ToString();
         }
     }
 }

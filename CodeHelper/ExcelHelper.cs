@@ -1,4 +1,5 @@
-﻿using NPOI.HSSF.UserModel;
+﻿using CodeHelper;
+using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
 using NPOI.XSSF.UserModel;
 using System;
@@ -43,6 +44,82 @@ namespace CodeCreate
             if (cellStyle != null)
             {
                 row.GetCell(cellIndex).CellStyle = cellStyle;
+            }
+        }
+
+
+        /// <summary>
+        /// 获取单元格的内容
+        /// </summary>
+        /// <param name="sheetQuoteSheet"></param>
+        /// <param name="rowIndex"></param>
+        /// <param name="cellIndex"></param>
+        /// <param name="value"></param>
+        public static string GetCellValue(IWorkbook workbook, ISheet sheetQuoteSheet, int rowIndex, int cellIndex)
+        {
+            IRow row = sheetQuoteSheet.GetRow(rowIndex);
+            if (row != null)
+            {
+                ICell cell = row.GetCell(cellIndex);
+                if (cell != null)
+                {
+                    return GetCellForamtValue(cell, workbook);
+                }
+            }
+            return null;
+        }
+
+        public static string GetCellForamtValue(ICell cell, IWorkbook workbook)
+        {
+            try
+            {
+
+                string value = "";
+                switch (cell.CellType)
+                {
+                    case CellType.Blank: //空数据类型处理
+                        value = "";
+                        break;
+
+                    case CellType.String: //字符串类型
+                        value = cell.StringCellValue;
+                        break;
+
+                    case CellType.Numeric: //数字类型
+                        if (Utils.IsDouble(cell.NumericCellValue.ToString()))
+                        {
+                            value = cell.NumericCellValue.ToString();
+                        }
+                        else
+                        {
+                            value = cell.DateCellValue.ToString();
+                        }
+                        break;
+
+                    case CellType.Formula:
+                        if (workbook.GetType() == typeof(XSSFWorkbook))
+                        {
+
+                            XSSFFormulaEvaluator e = new XSSFFormulaEvaluator(workbook);
+                            value = e.Evaluate(cell).NumberValue.ToString();
+                        }
+                        else
+                        {
+                            HSSFFormulaEvaluator e = new HSSFFormulaEvaluator(workbook);
+                            value = e.Evaluate(cell).NumberValue.ToString();
+                        }
+                        //value = cell.CellFormula;
+                        break;
+
+                    default:
+                        value = "";
+                        break;
+                }
+                return value;
+            }
+            catch (Exception)
+            {
+                return cell.ToString();
             }
         }
     }

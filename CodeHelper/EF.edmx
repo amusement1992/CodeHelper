@@ -1,0 +1,297 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MyDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="GlitzhomeOrder">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="orderid" Type="nvarchar" MaxLength="100" />
+          <Property Name="clientpo" Type="nvarchar" MaxLength="100" />
+          <Property Name="shipping_instructions" Type="nvarchar(max)" />
+          <Property Name="comments" Type="nvarchar" MaxLength="100" />
+          <Property Name="start_ship_date_value" Type="nvarchar" MaxLength="100" />
+          <Property Name="orddate" Type="nvarchar" MaxLength="100" />
+          <Property Name="ship_complete" Type="nvarchar" MaxLength="100" />
+          <Property Name="shipMethod" Type="nvarchar" MaxLength="100" />
+          <Property Name="alternateid" Type="nvarchar" MaxLength="100" />
+          <Property Name="ship2name" Type="nvarchar" MaxLength="100" />
+          <Property Name="ship2attention" Type="nvarchar" MaxLength="100" />
+          <Property Name="ship2address1" Type="nvarchar" MaxLength="100" />
+          <Property Name="ship2address2" Type="nvarchar" MaxLength="100" />
+          <Property Name="ship2address3" Type="nvarchar" MaxLength="100" />
+          <Property Name="ship2city" Type="nvarchar" MaxLength="100" />
+          <Property Name="ship2state" Type="nvarchar" MaxLength="100" />
+          <Property Name="ship2zip" Type="nvarchar" MaxLength="100" />
+          <Property Name="ship2country" Type="nvarchar" MaxLength="100" />
+          <Property Name="ship2isresidential" Type="nvarchar" MaxLength="100" />
+          <Property Name="ship2phone" Type="nvarchar" MaxLength="100" />
+          <Property Name="ship2email" Type="nvarchar" MaxLength="100" />
+          <Property Name="carrier" Type="nvarchar" MaxLength="100" />
+          <Property Name="weight" Type="nvarchar" MaxLength="100" />
+          <Property Name="num_boxes" Type="nvarchar" MaxLength="100" />
+          <Property Name="length" Type="nvarchar" MaxLength="100" />
+          <Property Name="width" Type="nvarchar" MaxLength="100" />
+          <Property Name="height" Type="nvarchar" MaxLength="100" />
+          <Property Name="pakage_type" Type="nvarchar" MaxLength="100" />
+          <Property Name="billingoption" Type="nvarchar" MaxLength="100" />
+          <Property Name="ref1" Type="nvarchar" MaxLength="100" />
+          <Property Name="ref2" Type="nvarchar" MaxLength="100" />
+          <Property Name="ref3" Type="nvarchar" MaxLength="100" />
+          <Property Name="ref4" Type="nvarchar" MaxLength="100" />
+          <Property Name="ref5" Type="nvarchar" MaxLength="100" />
+          <Property Name="ref6" Type="nvarchar" MaxLength="100" />
+          <Property Name="tp_accnt" Type="nvarchar" MaxLength="100" />
+          <Property Name="billAddr1" Type="nvarchar" MaxLength="100" />
+          <Property Name="billAddr2" Type="nvarchar" MaxLength="100" />
+          <Property Name="billname" Type="nvarchar" MaxLength="100" />
+          <Property Name="billAttention" Type="nvarchar" MaxLength="100" />
+          <Property Name="billCity" Type="nvarchar" MaxLength="100" />
+          <Property Name="billCountry" Type="nvarchar" MaxLength="100" />
+          <Property Name="billPhone" Type="nvarchar" MaxLength="100" />
+          <Property Name="billState" Type="nvarchar" MaxLength="100" />
+          <Property Name="billZip" Type="nvarchar" MaxLength="100" />
+          <Property Name="fromadd1" Type="nvarchar" MaxLength="100" />
+          <Property Name="fromcity" Type="nvarchar" MaxLength="100" />
+          <Property Name="fromstate" Type="nvarchar" MaxLength="100" />
+          <Property Name="fromzip" Type="nvarchar" MaxLength="100" />
+          <Property Name="skued" Type="nvarchar" MaxLength="100" />
+          <Property Name="clientskued" Type="nvarchar" MaxLength="100" />
+          <Property Name="qtyed" Type="nvarchar" MaxLength="100" />
+          <Property Name="alt_nameed" Type="nvarchar" MaxLength="100" />
+          <Property Name="descriptioned" Type="nvarchar(max)" />
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FileName" Type="nvarchar" MaxLength="100" />
+          <Property Name="CreateDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="SystemUsers">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="DisplayName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Portrait" Type="nvarchar" MaxLength="200" />
+          <Property Name="LastLoginDate" Type="datetime" />
+          <Property Name="CreateUserID" Type="int" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="LastModifyBy" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastModifyDate" Type="datetime" />
+          <Property Name="IsSuperAdmin" Type="bit" Nullable="false" />
+          <Property Name="HierarchyID" Type="int" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="200" />
+          <Property Name="Status" Type="smallint" Nullable="false" />
+          <Property Name="IsTestAccount" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="MyDBModelStoreContainer">
+          <EntitySet Name="GlitzhomeOrder" EntityType="Self.GlitzhomeOrder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SystemUsers" EntityType="Self.SystemUsers" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MyDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="MyDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="GlitzhomeOrders" EntityType="MyDBModel.GlitzhomeOrder" />
+          <EntitySet Name="SystemUsers" EntityType="MyDBModel.SystemUser" />
+        </EntityContainer>
+        <EntityType Name="GlitzhomeOrder">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="orderid" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="clientpo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="shipping_instructions" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="comments" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="start_ship_date_value" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="orddate" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ship_complete" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="shipMethod" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="alternateid" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ship2name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ship2attention" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ship2address1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ship2address2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ship2address3" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ship2city" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ship2state" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ship2zip" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ship2country" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ship2isresidential" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ship2phone" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ship2email" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="carrier" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="weight" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="num_boxes" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="length" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="width" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="height" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="pakage_type" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="billingoption" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ref1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ref2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ref3" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ref4" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ref5" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ref6" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="tp_accnt" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="billAddr1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="billAddr2" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="billname" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="billAttention" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="billCity" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="billCountry" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="billPhone" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="billState" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="billZip" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="fromadd1" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="fromcity" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="fromstate" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="fromzip" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="skued" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="clientskued" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="qtyed" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="alt_nameed" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="descriptioned" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FileName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="SystemUser">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="DisplayName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Portrait" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="LastLoginDate" Type="DateTime" Precision="3" />
+          <Property Name="CreateUserID" Type="Int32" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="LastModifyBy" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="LastModifyDate" Type="DateTime" Precision="3" />
+          <Property Name="IsSuperAdmin" Type="Boolean" Nullable="false" />
+          <Property Name="HierarchyID" Type="Int32" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Status" Type="Int16" Nullable="false" />
+          <Property Name="IsTestAccount" Type="Boolean" Nullable="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MyDBModelStoreContainer" CdmEntityContainer="MyDBEntities">
+          <EntitySetMapping Name="GlitzhomeOrders">
+            <EntityTypeMapping TypeName="MyDBModel.GlitzhomeOrder">
+              <MappingFragment StoreEntitySet="GlitzhomeOrder">
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="descriptioned" ColumnName="descriptioned" />
+                <ScalarProperty Name="alt_nameed" ColumnName="alt_nameed" />
+                <ScalarProperty Name="qtyed" ColumnName="qtyed" />
+                <ScalarProperty Name="clientskued" ColumnName="clientskued" />
+                <ScalarProperty Name="skued" ColumnName="skued" />
+                <ScalarProperty Name="fromzip" ColumnName="fromzip" />
+                <ScalarProperty Name="fromstate" ColumnName="fromstate" />
+                <ScalarProperty Name="fromcity" ColumnName="fromcity" />
+                <ScalarProperty Name="fromadd1" ColumnName="fromadd1" />
+                <ScalarProperty Name="billZip" ColumnName="billZip" />
+                <ScalarProperty Name="billState" ColumnName="billState" />
+                <ScalarProperty Name="billPhone" ColumnName="billPhone" />
+                <ScalarProperty Name="billCountry" ColumnName="billCountry" />
+                <ScalarProperty Name="billCity" ColumnName="billCity" />
+                <ScalarProperty Name="billAttention" ColumnName="billAttention" />
+                <ScalarProperty Name="billname" ColumnName="billname" />
+                <ScalarProperty Name="billAddr2" ColumnName="billAddr2" />
+                <ScalarProperty Name="billAddr1" ColumnName="billAddr1" />
+                <ScalarProperty Name="tp_accnt" ColumnName="tp_accnt" />
+                <ScalarProperty Name="ref6" ColumnName="ref6" />
+                <ScalarProperty Name="ref5" ColumnName="ref5" />
+                <ScalarProperty Name="ref4" ColumnName="ref4" />
+                <ScalarProperty Name="ref3" ColumnName="ref3" />
+                <ScalarProperty Name="ref2" ColumnName="ref2" />
+                <ScalarProperty Name="ref1" ColumnName="ref1" />
+                <ScalarProperty Name="billingoption" ColumnName="billingoption" />
+                <ScalarProperty Name="pakage_type" ColumnName="pakage_type" />
+                <ScalarProperty Name="height" ColumnName="height" />
+                <ScalarProperty Name="width" ColumnName="width" />
+                <ScalarProperty Name="length" ColumnName="length" />
+                <ScalarProperty Name="num_boxes" ColumnName="num_boxes" />
+                <ScalarProperty Name="weight" ColumnName="weight" />
+                <ScalarProperty Name="carrier" ColumnName="carrier" />
+                <ScalarProperty Name="ship2email" ColumnName="ship2email" />
+                <ScalarProperty Name="ship2phone" ColumnName="ship2phone" />
+                <ScalarProperty Name="ship2isresidential" ColumnName="ship2isresidential" />
+                <ScalarProperty Name="ship2country" ColumnName="ship2country" />
+                <ScalarProperty Name="ship2zip" ColumnName="ship2zip" />
+                <ScalarProperty Name="ship2state" ColumnName="ship2state" />
+                <ScalarProperty Name="ship2city" ColumnName="ship2city" />
+                <ScalarProperty Name="ship2address3" ColumnName="ship2address3" />
+                <ScalarProperty Name="ship2address2" ColumnName="ship2address2" />
+                <ScalarProperty Name="ship2address1" ColumnName="ship2address1" />
+                <ScalarProperty Name="ship2attention" ColumnName="ship2attention" />
+                <ScalarProperty Name="ship2name" ColumnName="ship2name" />
+                <ScalarProperty Name="alternateid" ColumnName="alternateid" />
+                <ScalarProperty Name="shipMethod" ColumnName="shipMethod" />
+                <ScalarProperty Name="ship_complete" ColumnName="ship_complete" />
+                <ScalarProperty Name="orddate" ColumnName="orddate" />
+                <ScalarProperty Name="start_ship_date_value" ColumnName="start_ship_date_value" />
+                <ScalarProperty Name="comments" ColumnName="comments" />
+                <ScalarProperty Name="shipping_instructions" ColumnName="shipping_instructions" />
+                <ScalarProperty Name="clientpo" ColumnName="clientpo" />
+                <ScalarProperty Name="orderid" ColumnName="orderid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SystemUsers">
+            <EntityTypeMapping TypeName="MyDBModel.SystemUser">
+              <MappingFragment StoreEntitySet="SystemUsers">
+                <ScalarProperty Name="IsTestAccount" ColumnName="IsTestAccount" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="HierarchyID" ColumnName="HierarchyID" />
+                <ScalarProperty Name="IsSuperAdmin" ColumnName="IsSuperAdmin" />
+                <ScalarProperty Name="LastModifyDate" ColumnName="LastModifyDate" />
+                <ScalarProperty Name="LastModifyBy" ColumnName="LastModifyBy" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUserID" ColumnName="CreateUserID" />
+                <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+                <ScalarProperty Name="Portrait" ColumnName="Portrait" />
+                <ScalarProperty Name="DisplayName" ColumnName="DisplayName" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
