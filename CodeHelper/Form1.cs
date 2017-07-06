@@ -613,7 +613,11 @@ where     d.name=" + configModel.MARK + "a order by     a.id,a.colorder";
                         GlitzhomeOrder model = new GlitzhomeOrder();
                         model.orderid = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('A'));
 
-                        if (!string.IsNullOrEmpty(model.orderid) && model.orderid == "orderid")
+                        if (string.IsNullOrEmpty(model.orderid))
+                        {
+                            continue;
+                        }
+                        else if (model.orderid == "orderid")
                         {
                             continue;
                         }
@@ -717,5 +721,56 @@ where     d.name=" + configModel.MARK + "a order by     a.id,a.colorder";
             int time = int.Parse(label39.Text.ToString()) + 1;
             label39.Text = time.ToString();
         }
-    }
+
+        private void label41_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void textBox19_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            //<th data-options="field:'OuterBoxRate',width:100,align:'center'">外箱率</th>
+            //{ field: 'OuterBoxRate',width: 80,align: 'center',title: 'Case Pack'},
+
+            string str = richTextBox18.Text;
+
+            str = str.Replace("\n", "^");
+            string[] arr = str.Split('^');
+
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < arr.Length; i++)
+            {
+                string item = arr[i];
+                if (item.Contains("<th data-options=") || item.Contains("</th>"))
+                {
+                    string temp = item.Replace("<th data-options=\"", "{ ")
+                        .Replace("'\">", ",title: '")
+                        .Replace(",formatter:productNoFormatter\">", ",title: '")
+                        .Replace("</th>", "'},")
+                        .Replace("\">", "")
+                        .Replace("align:'left,title", "align:'left',title")
+                        .Replace("align:'center,title: '", "align:'center',title: '")
+                        .Replace("align:'center,title: '", "align:'center',title: '")
+                        .Replace(",hidden:true'}", ",hidden:true}")
+                        .Replace(",editor:{type:'validatebox'}", ",editor:{type:'validatebox'},title: '")
+                        .Replace(",options:{precision:0}}", ",options:{precision:0}},title: '")
+                        .Replace(",options:{required:true,validType:['integer']}}", ",options:{required:true,validType:['integer']}},title: '")
+                        .Replace(",editor:{type:'validatebox',options:{required:true}}", ",editor:{type:'validatebox',options:{required:true}},title: '")
+                        .Trim();
+                    sb.Append(temp + "\r\n");
+
+                }
+                else if(i>0 && arr[i-1].Contains("formatter"))
+                {
+                    sb.Append(item + "\r\n");
+                }
+        }
+        richTextBox17.Text = sb.ToString();
+        }
+}
 }
