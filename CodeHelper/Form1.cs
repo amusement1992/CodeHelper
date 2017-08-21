@@ -765,7 +765,6 @@ where     d.name=" + configModel.MARK + "a order by     a.id,a.colorder";
         {
             try
             {
-
                 string str = richTextBox20.Text;
 
                 str = str.Replace("\n", "^");
@@ -808,7 +807,6 @@ where     d.name=" + configModel.MARK + "a order by     a.id,a.colorder";
                             Desc = desc,
                         });
                     }
-
                 }
 
                 listModel = listModel.OrderBy(d => d.Index).ToList();
@@ -849,7 +847,6 @@ where     d.name=" + configModel.MARK + "a order by     a.id,a.colorder";
                 workbook.Write(swQuoteSheet);
                 swQuoteSheet.Close();
                 MessageBox.Show("Excel生成成功！");
-
             }
             catch (Exception ex)
             {
@@ -877,13 +874,11 @@ where     d.name=" + configModel.MARK + "a order by     a.id,a.colorder";
         {
             try
             {
-
                 if (this.txtFilePath2.Text == "")
                 {
                     MessageBox.Show("请先选择Excel路径");
                     return;
                 }
-
 
                 HSSFWorkbook workbook;
                 using (FileStream file = new FileStream(this.txtFilePath2.Text, FileMode.Open, FileAccess.Read))
@@ -918,7 +913,6 @@ where     d.name=" + configModel.MARK + "a order by     a.id,a.colorder";
                             Desc = desc,
                         });
                     }
-
                 }
                 List<DTModel> listContains = new List<DTModel>();//包含的
                 for (int i = sheet.FirstRowNum; i <= sheet.LastRowNum; i++)
@@ -939,8 +933,6 @@ where     d.name=" + configModel.MARK + "a order by     a.id,a.colorder";
 
                         listContains.Add(query.FirstOrDefault());
                     }
-
-
                 }
 
                 var listNotContains = listModel.Except(listContains).ToList();
@@ -948,28 +940,181 @@ where     d.name=" + configModel.MARK + "a order by     a.id,a.colorder";
                 {
                     ExcelHelper.SetCellValue(sheet, i, 9, listNotContains[i].Name);
                     ExcelHelper.SetCellValue(sheet, i, 10, listNotContains[i].Desc);
-
                 }
 
                 FileStream swQuoteSheet = File.OpenWrite("Data\\Temp模板" + DateTime.Now.ToString("yyyy-MM-dd HHmmss") + ".xls");
                 workbook.Write(swQuoteSheet);
                 swQuoteSheet.Close();
                 MessageBox.Show("Excel生成成功！");
-
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
         }
-    }
 
-    public class DTModel
-    {
-        public string TableName { get; set; }
-        public string TableDesc { get; set; }
-        public int Index { get; set; }
-        public string Name { get; set; }
-        public string Desc { get; set; }
+        private void txtFilePath3_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog file = new OpenFileDialog();
+            file.Filter = "Excel|*.xls";//*.xls;
+            file.ShowDialog();
+            if (!string.IsNullOrWhiteSpace(file.FileName))
+            {
+                this.txtFilePath3.Text = file.FileName;
+            }
+        }
+
+        private void btnGen3_Click(object sender, EventArgs e)
+        {
+            if (this.txtFilePath3.Text == "")
+            {
+                MessageBox.Show("请先选择Excel路径");
+                return;
+            }
+
+
+            HSSFWorkbook workbook;
+            using (FileStream file = new FileStream(this.txtFilePath3.Text, FileMode.Open, FileAccess.Read))
+            {
+                workbook = new HSSFWorkbook(file);
+                file.Close();
+            }
+            var sheet = workbook.GetSheetAt(0);
+
+            string tableName = "";
+            string tableDesc = "";
+
+            List<DTModel> listModel = new List<DTModel>();
+            for (int i = 1; i <= sheet.LastRowNum; i++)
+            {
+                var row = sheet.GetRow(i);
+                if (row == null) continue;
+
+                DTModel model = new DTModel();
+                model.Index = i;
+                for (int j = 1; j < 8; j++)
+                {
+                    var cell = row.GetCell(j);
+                    if (cell == null) continue;
+
+                    string cellValue = cell.ToString().Trim();
+                    switch (j)
+                    {
+                        case 1://表名
+                            tableName = cellValue;
+                            break;
+
+                        case 2://表名描述
+                            tableDesc = cellValue;
+                            break;
+
+                        case 3://列名
+                            model.Name = cellValue;
+                            break;
+
+                        case 4://数据类型
+                            model.DataType = cellValue;
+                            break;
+
+                        case 5://是否允许Null
+                            model.IsNull = cellValue == "Checked" ? "NULL" : "NOT NULL";
+                            break;
+
+                        case 6://列名说明
+                            model.Desc = cellValue;
+                            break;
+
+                        case 7://是否是主键
+                            model.IsPK = cellValue == "PK";
+                            break;
+
+                        case 8://默认值
+                            model.DefaultValue = cellValue;
+                            break;
+
+                        default:
+                            break;
+                    }
+                    model.TableName = tableName;
+                    model.TableDesc = tableDesc;
+                }
+                if (!string.IsNullOrEmpty(model.TableName) && !string.IsNullOrEmpty(model.Name))
+                {
+                    listModel.Add(model);
+
+                }
+            }
+
+            if (listModel != null && listModel.Count > 0)
+            {
+                StringBuilder sb = new StringBuilder();
+                string temp = @"USE master
+GO
+
+create database HRS4
+GO
+
+USE HRS4
+GO";
+                sb.AppendLine(temp);
+
+                var query = listModel.GroupBy(d => d.TableName);
+                foreach (var item in query)
+                {
+                    string tableName2 = item.FirstOrDefault().TableName;
+                    string primaryKey = "";
+                    StringBuilder sb1 = new StringBuilder();
+                    StringBuilder sb2 = new StringBuilder();
+                    StringBuilder sb3 = new StringBuilder();
+                    foreach (var item2 in item)
+                    {
+                        sb1.AppendLine(string.Format(" [{0}] {1} {2},", item2.Name, item2.DataType, item2.IsNull));
+
+
+                        if (!string.IsNullOrEmpty(item2.DefaultValue))
+                        {
+                            sb2.AppendLine(string.Format("ALTER TABLE [dbo].[{0}] ADD  DEFAULT (({1})) FOR [{2}]", item2.TableName, item2.DefaultValue, item2.Name));
+                            sb2.AppendLine("GO");
+                            sb2.AppendLine();
+                        }
+
+
+                        sb3.AppendLine(string.Format("EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'{0}' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'{1}', @level2type=N'COLUMN',@level2name=N'{2}'", item2.Desc, item2.TableName, item2.Name));
+                        sb3.AppendLine("GO");
+                        sb3.AppendLine();
+
+                        if (item2.IsPK)
+                        {
+                            primaryKey = item2.Name;
+                        }
+
+                    }
+
+
+                    string str = string.Format(@"
+CREATE TABLE [dbo].[{0}](
+	{1}
+ CONSTRAINT [{2}] PRIMARY KEY CLUSTERED 
+(
+	[{3}] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+
+{4}
+
+{5}
+
+", tableName2, sb1.ToString(), "PK_" + tableName2 + "_" + primaryKey, primaryKey, sb2.ToString(), sb3.ToString());
+                    sb.AppendLine(str);
+                }
+
+                richTextBox19.Text = sb.ToString();
+            }
+
+        }
+
+
+
     }
 }

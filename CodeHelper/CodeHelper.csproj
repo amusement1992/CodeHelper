@@ -74,6 +74,7 @@
   <ItemGroup>
     <Compile Include="ConfigModel.cs" />
     <Compile Include="CommonCode.cs" />
+    <Compile Include="DTModel.cs" />
     <Compile Include="EF.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
