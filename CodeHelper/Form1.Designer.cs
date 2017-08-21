@@ -130,13 +130,25 @@
             this.label26 = new System.Windows.Forms.Label();
             this.button8 = new System.Windows.Forms.Button();
             this.label27 = new System.Windows.Forms.Label();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.tabPage10 = new System.Windows.Forms.TabPage();
             this.richTextBox17 = new System.Windows.Forms.RichTextBox();
             this.richTextBox18 = new System.Windows.Forms.RichTextBox();
             this.label42 = new System.Windows.Forms.Label();
             this.button10 = new System.Windows.Forms.Button();
             this.label43 = new System.Windows.Forms.Label();
+            this.tabPage11 = new System.Windows.Forms.TabPage();
+            this.richTextBox20 = new System.Windows.Forms.RichTextBox();
+            this.button11 = new System.Windows.Forms.Button();
+            this.label44 = new System.Windows.Forms.Label();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.button12 = new System.Windows.Forms.Button();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.label41 = new System.Windows.Forms.Label();
+            this.button13 = new System.Windows.Forms.Button();
+            this.button14 = new System.Windows.Forms.Button();
+            this.txtFilePath2 = new System.Windows.Forms.TextBox();
+            this.label45 = new System.Windows.Forms.Label();
+            this.label46 = new System.Windows.Forms.Label();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
@@ -150,6 +162,8 @@
             this.tabPage7.SuspendLayout();
             this.tabPage8.SuspendLayout();
             this.tabPage10.SuspendLayout();
+            this.tabPage11.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -568,6 +582,7 @@
             this.替换内容.Controls.Add(this.tabPage7);
             this.替换内容.Controls.Add(this.tabPage8);
             this.替换内容.Controls.Add(this.tabPage10);
+            this.替换内容.Controls.Add(this.tabPage11);
             this.替换内容.Location = new System.Drawing.Point(12, 12);
             this.替换内容.Name = "替换内容";
             this.替换内容.SelectedIndex = 0;
@@ -577,6 +592,7 @@
             // tabPage9
             // 
             this.tabPage9.Controls.Add(this.groupBox2);
+            this.tabPage9.Controls.Add(this.groupBox3);
             this.tabPage9.Controls.Add(this.groupBox1);
             this.tabPage9.Location = new System.Drawing.Point(4, 22);
             this.tabPage9.Name = "tabPage9";
@@ -1148,11 +1164,6 @@
             this.label27.TabIndex = 28;
             this.label27.Text = "需要替换的内容：";
             // 
-            // timer1
-            // 
-            this.timer1.Interval = 1000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
             // tabPage10
             // 
             this.tabPage10.Controls.Add(this.richTextBox17);
@@ -1212,6 +1223,133 @@
             this.label43.TabIndex = 37;
             this.label43.Text = "需要替换的内容：";
             // 
+            // tabPage11
+            // 
+            this.tabPage11.Controls.Add(this.richTextBox20);
+            this.tabPage11.Controls.Add(this.button12);
+            this.tabPage11.Controls.Add(this.button11);
+            this.tabPage11.Controls.Add(this.label44);
+            this.tabPage11.Location = new System.Drawing.Point(4, 22);
+            this.tabPage11.Name = "tabPage11";
+            this.tabPage11.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage11.Size = new System.Drawing.Size(1115, 634);
+            this.tabPage11.TabIndex = 10;
+            this.tabPage11.Text = "通过代码文件获取内容";
+            this.tabPage11.UseVisualStyleBackColor = true;
+            // 
+            // richTextBox20
+            // 
+            this.richTextBox20.Location = new System.Drawing.Point(119, 6);
+            this.richTextBox20.Name = "richTextBox20";
+            this.richTextBox20.Size = new System.Drawing.Size(821, 561);
+            this.richTextBox20.TabIndex = 46;
+            this.richTextBox20.Text = "";
+            // 
+            // button11
+            // 
+            this.button11.Location = new System.Drawing.Point(119, 573);
+            this.button11.Name = "button11";
+            this.button11.Size = new System.Drawing.Size(292, 33);
+            this.button11.TabIndex = 43;
+            this.button11.Text = "生成";
+            this.button11.UseVisualStyleBackColor = true;
+            this.button11.Click += new System.EventHandler(this.button11_Click);
+            // 
+            // label44
+            // 
+            this.label44.AutoSize = true;
+            this.label44.Location = new System.Drawing.Point(48, 9);
+            this.label44.Name = "label44";
+            this.label44.Size = new System.Drawing.Size(71, 12);
+            this.label44.TabIndex = 42;
+            this.label44.Text = "Model内容：";
+            // 
+            // timer1
+            // 
+            this.timer1.Interval = 1000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            // 
+            // button12
+            // 
+            this.button12.Location = new System.Drawing.Point(417, 574);
+            this.button12.Name = "button12";
+            this.button12.Size = new System.Drawing.Size(79, 32);
+            this.button12.TabIndex = 43;
+            this.button12.Text = "打开文件夹";
+            this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.button12_Click);
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.label41);
+            this.groupBox3.Controls.Add(this.button13);
+            this.groupBox3.Controls.Add(this.button14);
+            this.groupBox3.Controls.Add(this.txtFilePath2);
+            this.groupBox3.Controls.Add(this.label45);
+            this.groupBox3.Controls.Add(this.label46);
+            this.groupBox3.Location = new System.Drawing.Point(12, 264);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(444, 252);
+            this.groupBox3.TabIndex = 62;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "根据模板生成excel";
+            // 
+            // label41
+            // 
+            this.label41.AutoSize = true;
+            this.label41.Location = new System.Drawing.Point(6, 17);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(71, 12);
+            this.label41.TabIndex = 58;
+            this.label41.Text = "Excel文件：";
+            // 
+            // button13
+            // 
+            this.button13.Location = new System.Drawing.Point(294, 12);
+            this.button13.Name = "button13";
+            this.button13.Size = new System.Drawing.Size(75, 23);
+            this.button13.TabIndex = 56;
+            this.button13.Text = "生成";
+            this.button13.UseVisualStyleBackColor = true;
+            this.button13.Click += new System.EventHandler(this.btnGen2_Click);
+            // 
+            // button14
+            // 
+            this.button14.Location = new System.Drawing.Point(294, 46);
+            this.button14.Name = "button14";
+            this.button14.Size = new System.Drawing.Size(75, 23);
+            this.button14.TabIndex = 61;
+            this.button14.Text = "打开";
+            this.button14.UseVisualStyleBackColor = true;
+            this.button14.Click += new System.EventHandler(this.btnOpen_Click);
+            // 
+            // txtFilePath2
+            // 
+            this.txtFilePath2.Location = new System.Drawing.Point(79, 14);
+            this.txtFilePath2.Name = "txtFilePath2";
+            this.txtFilePath2.ReadOnly = true;
+            this.txtFilePath2.Size = new System.Drawing.Size(209, 21);
+            this.txtFilePath2.TabIndex = 57;
+            this.txtFilePath2.Click += new System.EventHandler(this.txtFilePath2_Click);
+            // 
+            // label45
+            // 
+            this.label45.AutoSize = true;
+            this.label45.Location = new System.Drawing.Point(12, 51);
+            this.label45.Name = "label45";
+            this.label45.Size = new System.Drawing.Size(65, 12);
+            this.label45.TabIndex = 59;
+            this.label45.Text = "处理结果：";
+            // 
+            // label46
+            // 
+            this.label46.AutoSize = true;
+            this.label46.Location = new System.Drawing.Point(77, 51);
+            this.label46.Name = "label46";
+            this.label46.Size = new System.Drawing.Size(65, 12);
+            this.label46.TabIndex = 60;
+            this.label46.Text = "暂时没内容";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1245,6 +1383,10 @@
             this.tabPage8.PerformLayout();
             this.tabPage10.ResumeLayout(false);
             this.tabPage10.PerformLayout();
+            this.tabPage11.ResumeLayout(false);
+            this.tabPage11.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1359,6 +1501,18 @@
         private System.Windows.Forms.Label label42;
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.Label label43;
+        private System.Windows.Forms.TabPage tabPage11;
+        private System.Windows.Forms.RichTextBox richTextBox20;
+        private System.Windows.Forms.Button button11;
+        private System.Windows.Forms.Label label44;
+        private System.Windows.Forms.Button button12;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Label label41;
+        private System.Windows.Forms.Button button13;
+        private System.Windows.Forms.Button button14;
+        private System.Windows.Forms.TextBox txtFilePath2;
+        private System.Windows.Forms.Label label45;
+        private System.Windows.Forms.Label label46;
     }
 }
 

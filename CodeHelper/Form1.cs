@@ -26,7 +26,6 @@ namespace CodeHelper
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
         }
 
         /// <summary>
@@ -570,14 +569,11 @@ where     d.name=" + configModel.MARK + "a order by     a.id,a.colorder";
                 {
                     textBox17.Text = dialog.SelectedPath;
                 }
-
             }
-
         }
 
         private void button9_Click(object sender, EventArgs e)
         {
-
             timer1.Start();
 
             //label37.Text = "暂时没内容";
@@ -600,7 +596,6 @@ where     d.name=" + configModel.MARK + "a order by     a.id,a.colorder";
                     file.Close();
 
                     var sheet = workbook.GetSheetAt(0);
-
 
                     for (int i = sheet.FirstRowNum; i <= sheet.LastRowNum; i++)
                     {
@@ -678,20 +673,16 @@ where     d.name=" + configModel.MARK + "a order by     a.id,a.colorder";
                         model.alt_nameed = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('A', 'B'));
                         model.descriptioned = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('B', 'B'));
 
-
                         model.FileName = fileName;
                         model.CreateDate = DateTime.Now;
 
                         listModel.Add(model);
                     }
                 }
-
             }
-
 
             if (listModel.Count > 0)
             {
-
                 try
                 {
                     using (MyDBEntities context = new MyDBEntities())
@@ -724,12 +715,10 @@ where     d.name=" + configModel.MARK + "a order by     a.id,a.colorder";
 
         private void label41_Click(object sender, EventArgs e)
         {
-
         }
 
         private void textBox19_TextChanged(object sender, EventArgs e)
         {
-
         }
 
         private void button10_Click(object sender, EventArgs e)
@@ -763,14 +752,224 @@ where     d.name=" + configModel.MARK + "a order by     a.id,a.colorder";
                         .Replace(",editor:{type:'validatebox',options:{required:true}}", ",editor:{type:'validatebox',options:{required:true}},title: '")
                         .Trim();
                     sb.Append(temp + "\r\n");
-
                 }
-                else if(i>0 && arr[i-1].Contains("formatter"))
+                else if (i > 0 && arr[i - 1].Contains("formatter"))
                 {
                     sb.Append(item + "\r\n");
                 }
+            }
+            richTextBox17.Text = sb.ToString();
         }
-        richTextBox17.Text = sb.ToString();
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                string str = richTextBox20.Text;
+
+                str = str.Replace("\n", "^");
+                string[] arr = str.Split('^');
+
+                List<DTModel> listModel = new List<DTModel>();
+                string tableName = "";
+                string tableDesc = "";
+                for (int i = 0; i < arr.Length; i++)
+                {
+                    if (arr[i].Contains("public class"))
+                    {
+                        tableName = arr[i].Split(' ').Where(d => d != "").ToList()[2];
+
+                        if (arr[i - 1].Contains("[Serializable]"))
+                        {
+                            tableDesc = arr[i - 3].Replace("/// ", "").Trim();
+                        }
+                        else
+                        {
+                            tableDesc = arr[i - 2].Replace("/// ", "").Trim();
+                        }
+                    }
+
+                    if (arr[i].Contains("{ get; set; }"))
+                    {
+                        string name = arr[i].Split(' ').Where(d => d != "").ToList()[2];
+                        string desc = "";
+                        if (arr[i - 1].Contains("/// </summary>"))
+                        {
+                            desc = arr[i - 2].Replace("/// ", "").Trim();
+                        }
+
+                        listModel.Add(new DTModel()
+                        {
+                            TableName = tableName,
+                            TableDesc = tableDesc,
+                            Index = i,
+                            Name = name,
+                            Desc = desc,
+                        });
+                    }
+
+                }
+
+                listModel = listModel.OrderBy(d => d.Index).ToList();
+                if (listModel.Count == 0)
+                {
+                    MessageBox.Show("Model没内容！");
+                    return;
+                }
+
+                IWorkbook workbook = new HSSFWorkbook();
+
+                ISheet sheet = workbook.CreateSheet();
+
+                for (int i = 0; i < listModel.Count; i++)//行
+                {
+                    var model = listModel[i];
+
+                    int thisCell = 0;
+
+                    ExcelHelper.SetCellValue(sheet, i, thisCell, model.TableName.ToString());
+
+                    thisCell++;
+
+                    ExcelHelper.SetCellValue(sheet, i, thisCell, model.TableDesc.ToString());
+                    thisCell++;
+
+                    ExcelHelper.SetCellValue(sheet, i, thisCell, model.Index.ToString());
+                    thisCell++;
+
+                    ExcelHelper.SetCellValue(sheet, i, thisCell, model.Name);
+                    thisCell++;
+
+                    ExcelHelper.SetCellValue(sheet, i, thisCell, model.Desc);
+                    thisCell++;
+                }
+
+                FileStream swQuoteSheet = File.OpenWrite("Data\\生成的" + DateTime.Now.ToString("yyyy-MM-dd HHmmss") + ".xls");
+                workbook.Write(swQuoteSheet);
+                swQuoteSheet.Close();
+                MessageBox.Show("Excel生成成功！");
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
-}
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start(Path.Combine(Application.StartupPath, "Data"));
+        }
+
+        private void txtFilePath2_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog file = new OpenFileDialog();
+            file.Filter = "Excel|*.xls";//*.xls;
+            file.ShowDialog();
+            if (!string.IsNullOrWhiteSpace(file.FileName))
+            {
+                this.txtFilePath2.Text = file.FileName;
+            }
+        }
+
+        private void btnGen2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                if (this.txtFilePath2.Text == "")
+                {
+                    MessageBox.Show("请先选择Excel路径");
+                    return;
+                }
+
+
+                HSSFWorkbook workbook;
+                using (FileStream file = new FileStream(this.txtFilePath2.Text, FileMode.Open, FileAccess.Read))
+                {
+                    workbook = new HSSFWorkbook(file);
+                    file.Close();
+                }
+                var sheet = workbook.GetSheetAt(0);
+
+                List<DTModel> listModel = new List<DTModel>();
+                for (int i = sheet.FirstRowNum; i <= sheet.LastRowNum; i++)
+                {
+                    var row = sheet.GetRow(i);
+                    if (row == null) continue;
+
+                    var cell = row.GetCell(3);
+                    if (cell == null) continue;
+
+                    string str = cell.ToString().Trim();
+                    string desc = "";
+                    if (!string.IsNullOrEmpty(str))
+                    {
+                        var cellDesc = row.GetCell(3);
+                        if (cellDesc != null)
+                        {
+                            desc = row.GetCell(4).ToString().Trim();
+                        }
+
+                        listModel.Add(new DTModel()
+                        {
+                            Name = str,
+                            Desc = desc,
+                        });
+                    }
+
+                }
+                List<DTModel> listContains = new List<DTModel>();//包含的
+                for (int i = sheet.FirstRowNum; i <= sheet.LastRowNum; i++)
+                {
+                    var row = sheet.GetRow(i);
+                    if (row == null) continue;
+
+                    var cell = row.GetCell(0);
+                    if (cell == null) continue;
+
+                    string str = cell.ToString().Trim();
+
+                    var query = listModel.Where(d => d.Name == str);
+                    if (query.Count() > 0)
+                    {
+                        ExcelHelper.SetCellValue(sheet, i, 6, query.FirstOrDefault().Name);
+                        ExcelHelper.SetCellValue(sheet, i, 7, query.FirstOrDefault().Desc);
+
+                        listContains.Add(query.FirstOrDefault());
+                    }
+
+
+                }
+
+                var listNotContains = listModel.Except(listContains).ToList();
+                for (int i = 0; i < listNotContains.Count; i++)
+                {
+                    ExcelHelper.SetCellValue(sheet, i, 9, listNotContains[i].Name);
+                    ExcelHelper.SetCellValue(sheet, i, 10, listNotContains[i].Desc);
+
+                }
+
+                FileStream swQuoteSheet = File.OpenWrite("Data\\Temp模板" + DateTime.Now.ToString("yyyy-MM-dd HHmmss") + ".xls");
+                workbook.Write(swQuoteSheet);
+                swQuoteSheet.Close();
+                MessageBox.Show("Excel生成成功！");
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+    }
+
+    public class DTModel
+    {
+        public string TableName { get; set; }
+        public string TableDesc { get; set; }
+        public int Index { get; set; }
+        public string Name { get; set; }
+        public string Desc { get; set; }
+    }
 }
