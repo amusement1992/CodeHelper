@@ -327,9 +327,6 @@ where     d.name=" + configModel.MARK + "a order by     a.id,a.colorder";
             richTextBox9.Text = str;
         }
 
-        private void button6_Click(object sender, EventArgs e)
-        {
-        }
 
         private void button7_Click(object sender, EventArgs e)
         {
@@ -789,7 +786,7 @@ where     d.name=" + configModel.MARK + "a order by     a.id,a.colorder";
                         }
                     }
 
-                    if (arr[i].Contains("{ get; set; }"))
+                    if (arr[i].Contains("get;") || arr[i].Contains("set;"))
                     {
                         string name = arr[i].Split(' ').Where(d => d != "").ToList()[2];
                         string desc = "";
