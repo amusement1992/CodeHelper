@@ -1111,7 +1111,59 @@ GO
 
         }
 
+        private void textBox9_Click(object sender, EventArgs e)
+        {
 
+            //richTextBox11.Text = GetAllFiles("C:\\Users\\admi\\Desktop\\新建文件夹", 0);
+            //return;
+            FolderBrowserDialog dialog = new FolderBrowserDialog();
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                string selectedPath = dialog.SelectedPath;
+                if (!string.IsNullOrWhiteSpace(selectedPath))
+                {
+                    textBox9.Text = selectedPath;
+
+
+                    DirectoryInfo di = new DirectoryInfo(selectedPath);
+
+                    string ParentPath = "";
+                    string thisFolder = "----文件夹：" + di.Name + "\r\n";
+                    if (di.Parent != null)
+                    {
+                        ParentPath = di.Parent.FullName;
+                    }
+                    if (cbox2.Checked)
+                    {
+                        ParentPath = "";
+                        thisFolder = "----文件夹：" + di.FullName + "\r\n";
+                    }
+
+                    richTextBox11.Text = thisFolder + GetAllFiles(selectedPath, ParentPath, 0);
+                }
+            }
+        }
+
+        public static string GetAllFiles(string TheFolder, string ParentPath, int Index)
+        {
+            StringBuilder sb = new StringBuilder();
+            if (Directory.Exists(TheFolder))
+            {
+                DirectoryInfo di = new DirectoryInfo(TheFolder);
+                foreach (FileInfo item2 in di.GetFiles().OrderBy(d => d.Name))//遍历文件
+                {
+                    sb.AppendLine(item2.Name);
+                }
+
+                foreach (DirectoryInfo item in di.GetDirectories().OrderBy(d => d.Name))//遍历文件夹
+                {
+                    sb.AppendLine();
+                    sb.AppendLine("----文件夹：" + (ParentPath == "" ? item.FullName : item.FullName.Replace(ParentPath, "")));
+                    sb.Append(GetAllFiles(item.FullName, ParentPath, Index++));
+                }
+            }
+            return sb.ToString();
+        }
 
     }
 }

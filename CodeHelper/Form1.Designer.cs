@@ -143,6 +143,13 @@
             this.button11 = new System.Windows.Forms.Button();
             this.label44 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.richTextBox11 = new System.Windows.Forms.RichTextBox();
+            this.label19 = new System.Windows.Forms.Label();
+            this.textBox9 = new System.Windows.Forms.TextBox();
+            this.label20 = new System.Windows.Forms.Label();
+            this.cbox2 = new System.Windows.Forms.CheckBox();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
@@ -158,6 +165,8 @@
             this.tabPage8.SuspendLayout();
             this.tabPage10.SuspendLayout();
             this.tabPage11.SuspendLayout();
+            this.tabPage6.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -576,6 +585,7 @@
             this.替换内容.Controls.Add(this.tabPage8);
             this.替换内容.Controls.Add(this.tabPage10);
             this.替换内容.Controls.Add(this.tabPage11);
+            this.替换内容.Controls.Add(this.tabPage6);
             this.替换内容.Location = new System.Drawing.Point(12, 12);
             this.替换内容.Name = "替换内容";
             this.替换内容.SelectedIndex = 0;
@@ -1288,6 +1298,76 @@
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // tabPage6
+            // 
+            this.tabPage6.Controls.Add(this.groupBox5);
+            this.tabPage6.Location = new System.Drawing.Point(4, 22);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage6.Size = new System.Drawing.Size(1115, 634);
+            this.tabPage6.TabIndex = 11;
+            this.tabPage6.Text = "获取文件夹的文件";
+            this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.cbox2);
+            this.groupBox5.Controls.Add(this.richTextBox11);
+            this.groupBox5.Controls.Add(this.label19);
+            this.groupBox5.Controls.Add(this.textBox9);
+            this.groupBox5.Controls.Add(this.label20);
+            this.groupBox5.Location = new System.Drawing.Point(6, 6);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(1103, 600);
+            this.groupBox5.TabIndex = 63;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "根据文件夹，获取文件列表";
+            // 
+            // richTextBox11
+            // 
+            this.richTextBox11.Location = new System.Drawing.Point(79, 46);
+            this.richTextBox11.Name = "richTextBox11";
+            this.richTextBox11.Size = new System.Drawing.Size(1018, 539);
+            this.richTextBox11.TabIndex = 62;
+            this.richTextBox11.Text = "";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(6, 17);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(53, 12);
+            this.label19.TabIndex = 58;
+            this.label19.Text = "文件夹：";
+            // 
+            // textBox9
+            // 
+            this.textBox9.Location = new System.Drawing.Point(243, 14);
+            this.textBox9.Name = "textBox9";
+            this.textBox9.ReadOnly = true;
+            this.textBox9.Size = new System.Drawing.Size(854, 21);
+            this.textBox9.TabIndex = 57;
+            this.textBox9.Click += new System.EventHandler(this.textBox9_Click);
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(12, 51);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(65, 12);
+            this.label20.TabIndex = 59;
+            this.label20.Text = "处理结果：";
+            // 
+            // cbox2
+            // 
+            this.cbox2.AutoSize = true;
+            this.cbox2.Location = new System.Drawing.Point(79, 16);
+            this.cbox2.Name = "cbox2";
+            this.cbox2.Size = new System.Drawing.Size(120, 16);
+            this.cbox2.TabIndex = 63;
+            this.cbox2.Text = "是否显示全部路径";
+            this.cbox2.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1325,6 +1405,9 @@
             this.tabPage10.PerformLayout();
             this.tabPage11.ResumeLayout(false);
             this.tabPage11.PerformLayout();
+            this.tabPage6.ResumeLayout(false);
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1445,6 +1528,13 @@
         private System.Windows.Forms.TextBox txtFilePath3;
         private System.Windows.Forms.Label label48;
         private System.Windows.Forms.RichTextBox richTextBox19;
+        private System.Windows.Forms.TabPage tabPage6;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.RichTextBox richTextBox11;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.TextBox textBox9;
+        private System.Windows.Forms.Label label20;
+        private System.Windows.Forms.CheckBox cbox2;
     }
 }
 
