@@ -1150,9 +1150,15 @@ GO
             if (Directory.Exists(TheFolder))
             {
                 DirectoryInfo di = new DirectoryInfo(TheFolder);
-                foreach (FileInfo item2 in di.GetFiles().OrderBy(d => d.Name))//遍历文件
+                if (di.GetFiles() != null && di.GetFiles().Length > 0)
                 {
-                    sb.AppendLine(item2.Name);
+                    int i = 1;
+                    int fileCount = di.GetFiles().Count();
+                    foreach (FileInfo item2 in di.GetFiles().OrderBy(d => d.Name))//遍历文件
+                    {
+                        sb.AppendLine(string.Format("{0} {1} ({2})", i.ToString().PadLeft(fileCount.ToString().Length, '0'), item2.Name, GetFileSize(item2.Length)));
+                        i++;
+                    }
                 }
 
                 foreach (DirectoryInfo item in di.GetDirectories().OrderBy(d => d.Name))//遍历文件夹
@@ -1165,5 +1171,28 @@ GO
             return sb.ToString();
         }
 
+        public static string GetEmptyString(int length)
+        {
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < length; i++)
+            {
+                sb.Append(" ");
+            }
+            return sb.ToString();
+        }
+
+        public static string GetFileSize(long length)
+        {
+            StringBuilder sb = new StringBuilder();
+            if (length < 1024 * 1024)
+            {
+                return Math.Round(length / 1024d, 2) + " KB";
+            }
+            else
+            {
+
+                return Math.Round(length / 1024d / 1024d, 2) + " MB";
+            }
+        }
     }
 }
