@@ -120,32 +120,43 @@ where     d.name=" + configModel.MARK + "a order by     a.id,a.colorder";
                 StringBuilder sb_column2 = new StringBuilder();//格式如 @NO_ID,@ST_NAME,@ST_VALUES,@NO_ORDER,@ST_OTHER,@ST_VALUES_ENG
                 StringBuilder sb_column3 = new StringBuilder();//格式如 new SqlParameter("@NO_ID", SqlType.Number,4),
                 StringBuilder sb_column4 = new StringBuilder();//格式如 parameters[0].Value = model.NO_ID;
+                StringBuilder sb_column5 = new StringBuilder();//格式如 NO_ID=@NO_ID,ST_NAME=@ST_NAME
                 for (int j = 0; j < dt_tables.Rows.Count; j++)
                 {
-                    string colName = dt_tables.Rows[j]["columnName"].ToString().Trim().ToUpper();//字段名
+                    string colName = dt_tables.Rows[j]["columnName"].ToString().Trim();//字段名
                     string colType = CommonCode.GetColType(dt_tables.Rows[j]["columnType"].ToString());//字段类型
                     if (j == dt_tables.Rows.Count - 1)
                     {
-                        sb_column1.Append("a.");
                         sb_column1.Append(colName);
                         sb_column2.Append(configModel.MARK + colName);
-                        sb_column3.AppendLine("					new SqlParameter(\"" + configModel.MARK + colName + "\", " + colType + ")};");
-                        sb_column4.AppendLine("            parameters[" + j + "].Value = model." + colName + ";");
+                        sb_column3.AppendLine("					new SqlParameter(\"" + configModel.MARK + colName + "\", model." + colName + ";)};");
+                        //sb_column4.AppendLine("            parameters[" + j + "].Value = model." + colName + ";");
+
+                        sb_column4.AppendLine("					 " + colName + "= model." + colName + ",");
+
+                        sb_column5.Append(colName + "=" + configModel.MARK + colName);
                     }
                     else
                     {
-                        sb_column1.Append("a.");
                         sb_column1.Append(colName + ",");
                         sb_column2.Append(configModel.MARK + colName + ",");
-                        sb_column3.AppendLine("					new SqlParameter(\"" + configModel.MARK + colName + "\", " + colType + "),");
-                        sb_column4.AppendLine("            parameters[" + j + "].Value = model." + colName + ";");
+                        sb_column3.AppendLine("					new SqlParameter(\"" + configModel.MARK + colName + "\", model." + colName + "),");
+                        //sb_column4.AppendLine("            parameters[" + j + "].Value = model." + colName + ";");
+                        sb_column4.AppendLine("					 " + colName + "= model." + colName + ",");
+
+                        sb_column5.Append(colName + "=" + configModel.MARK + colName + ",");
                     }
                 }
                 richTextBox6.Text = sb_column1.ToString() + "\r\n\r\n";
-                richTextBox6.Text += sb_column2.ToString();
+                richTextBox6.Text += sb_column2.ToString() + "\r\n\r\n";
+                richTextBox6.Text += sb_column5.ToString() + "\r\n\r\n";
 
-                //生成model
-                CreateModel(dt_tables);
+
+                richTextBox3.Text = sb_column3.ToString() + "\r\n\r\n";
+                richTextBox3.Text += sb_column4.ToString() + "\r\n\r\n";
+
+                ////生成model
+                //CreateModel(dt_tables);
 
                 #endregion 生成内容
             }

@@ -142,14 +142,14 @@
             this.button12 = new System.Windows.Forms.Button();
             this.button11 = new System.Windows.Forms.Button();
             this.label44 = new System.Windows.Forms.Label();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.tabPage6 = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.cbox2 = new System.Windows.Forms.CheckBox();
             this.richTextBox11 = new System.Windows.Forms.RichTextBox();
             this.label19 = new System.Windows.Forms.Label();
             this.textBox9 = new System.Windows.Forms.TextBox();
             this.label20 = new System.Windows.Forms.Label();
-            this.cbox2 = new System.Windows.Forms.CheckBox();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
@@ -316,7 +316,8 @@
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(464, 21);
             this.textBox2.TabIndex = 15;
-            this.textBox2.Text = "Database=ERP;Server=GLITZHOME;user id=sa;password=123;";
+            this.textBox2.Text = "Data Source=192.168.117.144;Initial Catalog=Group.ERP;user id=test;password=t#@!$" +
+    "%;\n";
             // 
             // label2
             // 
@@ -1293,11 +1294,6 @@
             this.label44.TabIndex = 42;
             this.label44.Text = "Model内容：";
             // 
-            // timer1
-            // 
-            this.timer1.Interval = 1000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
             // tabPage6
             // 
             this.tabPage6.Controls.Add(this.groupBox5);
@@ -1322,6 +1318,16 @@
             this.groupBox5.TabIndex = 63;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "根据文件夹，获取文件列表";
+            // 
+            // cbox2
+            // 
+            this.cbox2.AutoSize = true;
+            this.cbox2.Location = new System.Drawing.Point(79, 16);
+            this.cbox2.Name = "cbox2";
+            this.cbox2.Size = new System.Drawing.Size(120, 16);
+            this.cbox2.TabIndex = 63;
+            this.cbox2.Text = "是否显示全部路径";
+            this.cbox2.UseVisualStyleBackColor = true;
             // 
             // richTextBox11
             // 
@@ -1358,15 +1364,10 @@
             this.label20.TabIndex = 59;
             this.label20.Text = "处理结果：";
             // 
-            // cbox2
+            // timer1
             // 
-            this.cbox2.AutoSize = true;
-            this.cbox2.Location = new System.Drawing.Point(79, 16);
-            this.cbox2.Name = "cbox2";
-            this.cbox2.Size = new System.Drawing.Size(120, 16);
-            this.cbox2.TabIndex = 63;
-            this.cbox2.Text = "是否显示全部路径";
-            this.cbox2.UseVisualStyleBackColor = true;
+            this.timer1.Interval = 1000;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // Form1
             // 
