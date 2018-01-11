@@ -83,7 +83,7 @@ namespace CodeHelper
         /// 总账凭证
         /// </summary>
         [Description("总账凭证")]
-        U8_GlAccvouchSave,
+        U8_GlaccvouchSave,
 
         /// <summary>
         /// 其他入库单

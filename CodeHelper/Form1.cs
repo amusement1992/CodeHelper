@@ -1236,7 +1236,13 @@ GO
 
         private string GetJob_Json(string enumName, string enumDesc, string methodType)
         {
+            string cronExpression = textBox10.Text;
+            if (methodType == "SendData")
+            {
+                cronExpression = textBox21.Text;
+            }
 
+            // 'ExecuteTime': '{4}',
             string str = @"
   __1
     'job-name': '{1} {0}_{10}',
@@ -1246,7 +1252,6 @@ GO
     'queue': 'jobs',
     'job-data': __1
       'ServiceDesc': '{1}',
-      'ExecuteTime': '{4}',
       'TimeSpan': {5},
       'TimeSpanType': '{6}',
       'PageSize': {9},
@@ -1255,7 +1260,7 @@ GO
       'IsEnable': {11}
     __2
   __2,";
-            return string.Format(str, enumName, enumDesc, textBox11.Text, textBox10.Text, textBox19.Text, textBox20.Text, comboBox2.Text, comboBox3.Text, textBox22.Text, textBox23.Text, methodType, comboBox4.Text)
+            return string.Format(str, enumName, enumDesc, textBox11.Text, cronExpression, textBox19.Text, textBox20.Text, comboBox2.Text, comboBox3.Text, textBox22.Text, textBox23.Text, methodType, comboBox4.Text)
                 .Replace("__1", "{").Replace("__2", "}").Replace("'", "\"");
 
         }
