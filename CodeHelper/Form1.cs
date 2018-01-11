@@ -1223,7 +1223,13 @@ GO
                 sb3.AppendLine(GetJob_Rejister(item.ToString(), enumDesc, "AddList"));
                 sb3.AppendLine(GetJob_Rejister(item.ToString(), enumDesc, "SendData")).AppendLine();
             }
-            richTextBox12.Text = "[" + sb.ToString() + "]";
+            string str = @"
+//cron-expression说明：
+//格式：分钟 小时 天 月 星期
+//示例：0 2 1 * *  每月的第一天02:00执行
+
+";
+            richTextBox12.Text = str + "[" + sb.ToString() + "]";
             richTextBox21.Text = sb2.ToString();
             richTextBox22.Text = sb3.ToString();
         }
