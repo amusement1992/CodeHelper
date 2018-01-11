@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 
 namespace CodeCreate
@@ -69,6 +71,35 @@ namespace CodeCreate
                     break;
             }
             return colType;
+        }
+
+        public static string GetCustomEnumDesc(Type t, Enum e)
+        {
+            DescriptionAttribute da = null;
+            FieldInfo fi;
+            foreach (Enum type in Enum.GetValues(t))
+            {
+                fi = t.GetField((type.ToString()));
+                da = (DescriptionAttribute)Attribute.GetCustomAttribute(fi, typeof(DescriptionAttribute));
+                if (da != null && e.ToString() == type.ToString())
+                    return da.Description;
+            }
+            return string.Empty;
+        }
+
+        public static System.Enum GetCustomEnumByDesc(Type t, string description)
+        {
+            System.Enum e = null;
+            DescriptionAttribute da = null;
+            FieldInfo fi;
+            foreach (System.Enum type in System.Enum.GetValues(t))
+            {
+                fi = t.GetField((type.ToString()));
+                da = (DescriptionAttribute)Attribute.GetCustomAttribute(fi, typeof(DescriptionAttribute));
+                if (da != null && description == da.Description)
+                    e = type;
+            }
+            return e;
         }
 
     }

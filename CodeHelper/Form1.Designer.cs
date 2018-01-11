@@ -150,6 +150,32 @@
             this.textBox9 = new System.Windows.Forms.TextBox();
             this.label20 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.tabPage12 = new System.Windows.Forms.TabPage();
+            this.richTextBox12 = new System.Windows.Forms.RichTextBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.textBox10 = new System.Windows.Forms.TextBox();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label23 = new System.Windows.Forms.Label();
+            this.button6 = new System.Windows.Forms.Button();
+            this.textBox11 = new System.Windows.Forms.TextBox();
+            this.label49 = new System.Windows.Forms.Label();
+            this.textBox19 = new System.Windows.Forms.TextBox();
+            this.label50 = new System.Windows.Forms.Label();
+            this.textBox20 = new System.Windows.Forms.TextBox();
+            this.label51 = new System.Windows.Forms.Label();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.label52 = new System.Windows.Forms.Label();
+            this.label53 = new System.Windows.Forms.Label();
+            this.textBox22 = new System.Windows.Forms.TextBox();
+            this.label54 = new System.Windows.Forms.Label();
+            this.textBox23 = new System.Windows.Forms.TextBox();
+            this.richTextBox21 = new System.Windows.Forms.RichTextBox();
+            this.label55 = new System.Windows.Forms.Label();
+            this.label56 = new System.Windows.Forms.Label();
+            this.richTextBox22 = new System.Windows.Forms.RichTextBox();
+            this.label57 = new System.Windows.Forms.Label();
+            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.comboBox4 = new System.Windows.Forms.ComboBox();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
             this.tabPage3.SuspendLayout();
@@ -167,6 +193,7 @@
             this.tabPage11.SuspendLayout();
             this.tabPage6.SuspendLayout();
             this.groupBox5.SuspendLayout();
+            this.tabPage12.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -587,6 +614,7 @@
             this.替换内容.Controls.Add(this.tabPage10);
             this.替换内容.Controls.Add(this.tabPage11);
             this.替换内容.Controls.Add(this.tabPage6);
+            this.替换内容.Controls.Add(this.tabPage12);
             this.替换内容.Location = new System.Drawing.Point(12, 12);
             this.替换内容.Name = "替换内容";
             this.替换内容.SelectedIndex = 0;
@@ -1369,6 +1397,271 @@
             this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // tabPage12
+            // 
+            this.tabPage12.Controls.Add(this.textBox23);
+            this.tabPage12.Controls.Add(this.textBox22);
+            this.tabPage12.Controls.Add(this.comboBox4);
+            this.tabPage12.Controls.Add(this.comboBox3);
+            this.tabPage12.Controls.Add(this.comboBox2);
+            this.tabPage12.Controls.Add(this.textBox20);
+            this.tabPage12.Controls.Add(this.textBox19);
+            this.tabPage12.Controls.Add(this.label57);
+            this.tabPage12.Controls.Add(this.label54);
+            this.tabPage12.Controls.Add(this.label53);
+            this.tabPage12.Controls.Add(this.label52);
+            this.tabPage12.Controls.Add(this.label51);
+            this.tabPage12.Controls.Add(this.label50);
+            this.tabPage12.Controls.Add(this.richTextBox22);
+            this.tabPage12.Controls.Add(this.richTextBox21);
+            this.tabPage12.Controls.Add(this.richTextBox12);
+            this.tabPage12.Controls.Add(this.label21);
+            this.tabPage12.Controls.Add(this.textBox10);
+            this.tabPage12.Controls.Add(this.label56);
+            this.tabPage12.Controls.Add(this.label22);
+            this.tabPage12.Controls.Add(this.label55);
+            this.tabPage12.Controls.Add(this.label23);
+            this.tabPage12.Controls.Add(this.button6);
+            this.tabPage12.Controls.Add(this.textBox11);
+            this.tabPage12.Controls.Add(this.label49);
+            this.tabPage12.Location = new System.Drawing.Point(4, 22);
+            this.tabPage12.Name = "tabPage12";
+            this.tabPage12.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage12.Size = new System.Drawing.Size(1115, 634);
+            this.tabPage12.TabIndex = 12;
+            this.tabPage12.Text = "生成U8任务";
+            this.tabPage12.UseVisualStyleBackColor = true;
+            // 
+            // richTextBox12
+            // 
+            this.richTextBox12.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.richTextBox12.Location = new System.Drawing.Point(230, 300);
+            this.richTextBox12.Name = "richTextBox12";
+            this.richTextBox12.Size = new System.Drawing.Size(851, 99);
+            this.richTextBox12.TabIndex = 27;
+            this.richTextBox12.Text = "";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(87, 71);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(137, 12);
+            this.label21.TabIndex = 26;
+            this.label21.Text = "ExecuteTime 执行时间：";
+            // 
+            // textBox10
+            // 
+            this.textBox10.Location = new System.Drawing.Point(230, 41);
+            this.textBox10.Name = "textBox10";
+            this.textBox10.Size = new System.Drawing.Size(464, 21);
+            this.textBox10.TabIndex = 25;
+            this.textBox10.Text = "*/30 * * * *";
+            // 
+            // label22
+            // 
+            this.label22.AutoSize = true;
+            this.label22.Location = new System.Drawing.Point(117, 44);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(107, 12);
+            this.label22.TabIndex = 24;
+            this.label22.Text = "cron-expression：";
+            // 
+            // label23
+            // 
+            this.label23.AutoSize = true;
+            this.label23.Location = new System.Drawing.Point(138, 387);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(95, 12);
+            this.label23.TabIndex = 23;
+            this.label23.Text = "生成的JobJson：";
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(230, 261);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(292, 33);
+            this.button6.TabIndex = 22;
+            this.button6.Text = "生成";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // textBox11
+            // 
+            this.textBox11.Location = new System.Drawing.Point(230, 14);
+            this.textBox11.Name = "textBox11";
+            this.textBox11.Size = new System.Drawing.Size(464, 21);
+            this.textBox11.TabIndex = 21;
+            this.textBox11.Text = "U8FinanceService.Hangfire";
+            // 
+            // label49
+            // 
+            this.label49.AutoSize = true;
+            this.label49.Location = new System.Drawing.Point(159, 17);
+            this.label49.Name = "label49";
+            this.label49.Size = new System.Drawing.Size(65, 12);
+            this.label49.TabIndex = 20;
+            this.label49.Text = "项目名称：";
+            // 
+            // textBox19
+            // 
+            this.textBox19.Location = new System.Drawing.Point(230, 68);
+            this.textBox19.Name = "textBox19";
+            this.textBox19.Size = new System.Drawing.Size(159, 21);
+            this.textBox19.TabIndex = 28;
+            this.textBox19.Tag = "";
+            this.textBox19.Text = "2018-01-01";
+            // 
+            // label50
+            // 
+            this.label50.AutoSize = true;
+            this.label50.Location = new System.Drawing.Point(105, 128);
+            this.label50.Name = "label50";
+            this.label50.Size = new System.Drawing.Size(119, 12);
+            this.label50.TabIndex = 26;
+            this.label50.Text = "TimeSpan 时间跨度：";
+            // 
+            // textBox20
+            // 
+            this.textBox20.Location = new System.Drawing.Point(230, 125);
+            this.textBox20.Name = "textBox20";
+            this.textBox20.Size = new System.Drawing.Size(159, 21);
+            this.textBox20.TabIndex = 28;
+            this.textBox20.Text = "1";
+            // 
+            // label51
+            // 
+            this.label51.AutoSize = true;
+            this.label51.Location = new System.Drawing.Point(57, 101);
+            this.label51.Name = "label51";
+            this.label51.Size = new System.Drawing.Size(167, 12);
+            this.label51.TabIndex = 26;
+            this.label51.Text = "TimeSpanType 时间跨度类型：";
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Items.AddRange(new object[] {
+            "Month",
+            "Days"});
+            this.comboBox2.Location = new System.Drawing.Point(230, 98);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(159, 20);
+            this.comboBox2.TabIndex = 29;
+            this.comboBox2.Text = "Month";
+            // 
+            // label52
+            // 
+            this.label52.AutoSize = true;
+            this.label52.Location = new System.Drawing.Point(27, 208);
+            this.label52.Name = "label52";
+            this.label52.Size = new System.Drawing.Size(197, 12);
+            this.label52.TabIndex = 26;
+            this.label52.Text = "IsSendSummary 是否发送汇总数据：";
+            // 
+            // label53
+            // 
+            this.label53.AutoSize = true;
+            this.label53.Location = new System.Drawing.Point(15, 181);
+            this.label53.Name = "label53";
+            this.label53.Size = new System.Drawing.Size(209, 12);
+            this.label53.TabIndex = 26;
+            this.label53.Text = "ErrorRerunNumNumber 错误重发次数：";
+            // 
+            // textBox22
+            // 
+            this.textBox22.Location = new System.Drawing.Point(230, 178);
+            this.textBox22.Name = "textBox22";
+            this.textBox22.Size = new System.Drawing.Size(93, 21);
+            this.textBox22.TabIndex = 30;
+            this.textBox22.Text = "3";
+            // 
+            // label54
+            // 
+            this.label54.AutoSize = true;
+            this.label54.Location = new System.Drawing.Point(81, 156);
+            this.label54.Name = "label54";
+            this.label54.Size = new System.Drawing.Size(143, 12);
+            this.label54.TabIndex = 26;
+            this.label54.Text = "PageSize 每次发送个数：";
+            // 
+            // textBox23
+            // 
+            this.textBox23.Location = new System.Drawing.Point(230, 153);
+            this.textBox23.Name = "textBox23";
+            this.textBox23.Size = new System.Drawing.Size(93, 21);
+            this.textBox23.TabIndex = 30;
+            this.textBox23.Text = "100";
+            // 
+            // richTextBox21
+            // 
+            this.richTextBox21.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.richTextBox21.Location = new System.Drawing.Point(230, 405);
+            this.richTextBox21.Name = "richTextBox21";
+            this.richTextBox21.Size = new System.Drawing.Size(851, 99);
+            this.richTextBox21.TabIndex = 27;
+            this.richTextBox21.Text = "";
+            // 
+            // label55
+            // 
+            this.label55.AutoSize = true;
+            this.label55.Location = new System.Drawing.Point(138, 492);
+            this.label55.Name = "label55";
+            this.label55.Size = new System.Drawing.Size(95, 12);
+            this.label55.TabIndex = 23;
+            this.label55.Text = "生成的Job方法：";
+            // 
+            // label56
+            // 
+            this.label56.AutoSize = true;
+            this.label56.Location = new System.Drawing.Point(108, 594);
+            this.label56.Name = "label56";
+            this.label56.Size = new System.Drawing.Size(125, 12);
+            this.label56.TabIndex = 23;
+            this.label56.Text = "生成的Job Register：";
+            // 
+            // richTextBox22
+            // 
+            this.richTextBox22.Font = new System.Drawing.Font("宋体", 10.5F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.richTextBox22.Location = new System.Drawing.Point(230, 507);
+            this.richTextBox22.Name = "richTextBox22";
+            this.richTextBox22.Size = new System.Drawing.Size(851, 99);
+            this.richTextBox22.TabIndex = 27;
+            this.richTextBox22.Text = "";
+            // 
+            // label57
+            // 
+            this.label57.AutoSize = true;
+            this.label57.Location = new System.Drawing.Point(105, 239);
+            this.label57.Name = "label57";
+            this.label57.Size = new System.Drawing.Size(119, 12);
+            this.label57.TabIndex = 26;
+            this.label57.Text = "IsEnable 是否可用：";
+            // 
+            // comboBox3
+            // 
+            this.comboBox3.FormattingEnabled = true;
+            this.comboBox3.Items.AddRange(new object[] {
+            "true",
+            "false"});
+            this.comboBox3.Location = new System.Drawing.Point(230, 205);
+            this.comboBox3.Name = "comboBox3";
+            this.comboBox3.Size = new System.Drawing.Size(159, 20);
+            this.comboBox3.TabIndex = 29;
+            this.comboBox3.Text = "false";
+            // 
+            // comboBox4
+            // 
+            this.comboBox4.FormattingEnabled = true;
+            this.comboBox4.Items.AddRange(new object[] {
+            "true",
+            "false"});
+            this.comboBox4.Location = new System.Drawing.Point(230, 235);
+            this.comboBox4.Name = "comboBox4";
+            this.comboBox4.Size = new System.Drawing.Size(159, 20);
+            this.comboBox4.TabIndex = 29;
+            this.comboBox4.Text = "true";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1409,6 +1702,8 @@
             this.tabPage6.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             this.groupBox5.PerformLayout();
+            this.tabPage12.ResumeLayout(false);
+            this.tabPage12.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1536,6 +1831,32 @@
         private System.Windows.Forms.TextBox textBox9;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.CheckBox cbox2;
+        private System.Windows.Forms.TabPage tabPage12;
+        private System.Windows.Forms.TextBox textBox22;
+        private System.Windows.Forms.ComboBox comboBox2;
+        private System.Windows.Forms.TextBox textBox20;
+        private System.Windows.Forms.TextBox textBox19;
+        private System.Windows.Forms.Label label53;
+        private System.Windows.Forms.Label label52;
+        private System.Windows.Forms.Label label51;
+        private System.Windows.Forms.Label label50;
+        private System.Windows.Forms.RichTextBox richTextBox12;
+        private System.Windows.Forms.Label label21;
+        private System.Windows.Forms.TextBox textBox10;
+        private System.Windows.Forms.Label label22;
+        private System.Windows.Forms.Label label23;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.TextBox textBox11;
+        private System.Windows.Forms.Label label49;
+        private System.Windows.Forms.TextBox textBox23;
+        private System.Windows.Forms.Label label54;
+        private System.Windows.Forms.RichTextBox richTextBox21;
+        private System.Windows.Forms.Label label55;
+        private System.Windows.Forms.RichTextBox richTextBox22;
+        private System.Windows.Forms.Label label56;
+        private System.Windows.Forms.Label label57;
+        private System.Windows.Forms.ComboBox comboBox4;
+        private System.Windows.Forms.ComboBox comboBox3;
     }
 }
 

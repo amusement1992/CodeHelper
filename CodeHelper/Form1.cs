@@ -1205,5 +1205,80 @@ GO
                 return Math.Round(length / 1024d / 1024d, 2) + " MB";
             }
         }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            StringBuilder sb = new StringBuilder();
+            StringBuilder sb2 = new StringBuilder();
+            StringBuilder sb3 = new StringBuilder();
+            foreach (var item in Enum.GetValues(typeof(U8InterfaceEnum)))
+            {
+                string enumDesc = CommonCode.GetCustomEnumDesc(typeof(U8InterfaceEnum), (U8InterfaceEnum)item);
+                sb.AppendLine(GetJob_Json(item.ToString(), enumDesc, "AddList"));
+                sb.AppendLine(GetJob_Json(item.ToString(), enumDesc, "SendData"));
+
+                sb2.AppendLine(GetJob_Method(item.ToString(), enumDesc, "AddList"));
+                sb2.AppendLine(GetJob_Method(item.ToString(), enumDesc, "SendData"));
+
+                sb3.AppendLine(GetJob_Rejister(item.ToString(), enumDesc, "AddList"));
+                sb3.AppendLine(GetJob_Rejister(item.ToString(), enumDesc, "SendData")).AppendLine();
+            }
+            richTextBox12.Text = "[" + sb.ToString() + "]";
+            richTextBox21.Text = sb2.ToString();
+            richTextBox22.Text = sb3.ToString();
+        }
+
+        private string GetJob_Json(string enumName, string enumDesc, string methodType)
+        {
+
+            string str = @"
+  __1
+    'job-name': '{1} {0}_{10}',
+    'job-type': '{2}.Jobs.{0}_{10}, {2}',
+    'cron-expression': '{3}',
+    'timezone': 'China Standard Time',
+    'queue': 'jobs',
+    'job-data': __1
+      'ServiceDesc': '{1}',
+      'ExecuteTime': '{4}',
+      'TimeSpan': {5},
+      'TimeSpanType': '{6}',
+      'PageSize': {9},
+      'ErrorRerunNumNumber': {8},
+      'IsSendSummary': {7},
+      'IsEnable': {11}
+    __2
+  __2,";
+            return string.Format(str, enumName, enumDesc, textBox11.Text, textBox10.Text, textBox19.Text, textBox20.Text, comboBox2.Text, comboBox3.Text, textBox22.Text, textBox23.Text, methodType, comboBox4.Text)
+                .Replace("__1", "{").Replace("__2", "}").Replace("'", "\"");
+
+        }
+
+        private string GetJob_Method(string enumName, string enumDesc, string methodType)
+        {
+            string str = @"
+    /// <summary>
+    /// {1}
+    /// </summary>
+    public class {0}_{2} : IRecurringJob
+    __1
+        /// <summary>
+        /// {1} {0}_{2}
+        /// </summary>
+        /// <param name='context'></param>
+        [DisplayName('{1} {0}_{2}')]
+        public void Execute(PerformContext context)
+        __1
+            BaseJobs.{2}(context);
+        __2
+    __2";
+            return string.Format(str, enumName, enumDesc, methodType)
+                .Replace("__1", "{").Replace("__2", "}").Replace("'", "\"");
+        }
+        private string GetJob_Rejister(string enumName, string enumDesc, string methodType)
+        {
+            string str = @"builder.Register(x => new {0}_{2}());";
+            return string.Format(str, enumName, enumDesc, methodType);
+        }
     }
 }
