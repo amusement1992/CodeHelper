@@ -29,7 +29,7 @@ namespace CodeHelper
         }
 
         /// <summary>
-        /// 格式化换行——生成
+        /// 通过分隔符换行——生成
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -151,7 +151,6 @@ where     d.name=" + configModel.MARK + "a order by     a.id,a.colorder";
                 richTextBox6.Text += sb_column2.ToString() + "\r\n\r\n";
                 richTextBox6.Text += sb_column5.ToString() + "\r\n\r\n";
 
-
                 richTextBox3.Text = sb_column3.ToString() + "\r\n\r\n";
                 richTextBox3.Text += sb_column4.ToString() + "\r\n\r\n";
 
@@ -160,65 +159,6 @@ where     d.name=" + configModel.MARK + "a order by     a.id,a.colorder";
 
                 #endregion 生成内容
             }
-        }
-
-        public void CreateModel(DataTable dt_tables)
-        {
-            //[Desc];ValidDate||Date;PriceInputDate||Date;$ID||int;CtnsPallet||Int32;OuterBoxRate||Int32;InnerBoxRate||Int32;PDQPackRate||Int32;PackingMannerEnID||Int32;MOQZh||Int32;MOQEn||Int32;PackingMannerZhID||Int32;PortID||Int32;StyleID||Int32;CustomerID||Int32;FactoryID||Int32;ClassifyID||Int32;No;NoFactory;Name;[Image];Unit;[Length];Height;Width;[Weight];IngredientZh;IngredientEn;PDQLength;PDQWidth;PDQHeight;InnerLength;InnerWidth;InnerHeight;InnerWeight;OuterLength;OuterWidth;OuterHeight;OuterWeightGross;OuterWeightNet;PriceFactory;MiscImportLoad;Agent;SRP;HTS;DutyPercent;FreightRate;Remarks;Comment;
-
-            bool isPrimeKey = false;
-            string primaryKey = "";
-
-            #region Model
-
-            StringBuilder sb = new StringBuilder();
-            StringBuilder sb2 = new StringBuilder();
-            int i = 0;
-            //遍历每个字段
-            foreach (DataRow dr in dt_tables.Rows)
-            {
-                string columnName = dr["columnName"].ToString().Trim();//字段名
-                string columnType = dr["columnType"].ToString().Trim();//字段类型
-                string columnComment = dr["columnComment"].ToString().Trim();//字段注释
-                string nullable = dr["nullable"].ToString().Trim();//是否可空（Y是不为空，N是为空）
-                string data_default = dr["data_default"].ToString().Trim();//默認值
-                string data_maxLength = dr["char_col_decl_length"].ToString().Trim();//最大長度
-                string bool_primaryKey = dr["primaryKey"].ToString().Trim();//主键 值为Y或N
-                if (bool_primaryKey.ToUpper() == "Y")//存在主键
-                {
-                    isPrimeKey = true;
-                    primaryKey = columnName.ToUpper();
-                }
-                string type = "";
-
-                switch (columnType.ToLower())
-                {
-                    case "int":
-                        type = "Int";
-                        break;
-
-                    case "date":
-                    case "datetime":
-                        type = "Date";
-                        break;
-
-                    default:
-                        break;
-                }
-                if (type.Length != 0)
-                {
-                    type = "||" + type;
-                }
-                //sb.Append(columnName + type + ";\r\n\r\n");
-                sb.Append("<ds:Col SortExpression=\"a." + columnName + "\" ID=\"Col" + i + "\" runat=\"server\" ColExpression=\"" + columnName + "\"  HeaderText=\"" + columnComment + "\" />\r\n");
-
-                sb2.Append("arrayList.Add(DB.CreateParameter(\"@" + columnName + "\", DbType.String," + columnName + "));\r\n");
-                i++;
-            }
-            richTextBox3.Text = sb.ToString() + "\r\n\r\n";
-            richTextBox3.Text += sb2.ToString();
-
-            #endregion Model
         }
 
         private void comboBox1_DropDown(object sender, EventArgs e)
@@ -244,77 +184,6 @@ where     d.name=" + configModel.MARK + "a order by     a.id,a.colorder";
         }
 
         /// <summary>
-        /// 新建表——生成
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void button3_Click(object sender, EventArgs e)
-        {
-            string tableName = textBox1.Text.Trim();
-            string content = richTextBox4.Text.Trim();
-            //内容（格式如：字段名?类型?非空?主键?自增长|）：
-            //OrderID?varchar(100)?P?Identity(1,1)?Null
-
-            StringBuilder sb = new StringBuilder();
-            sb.Append("CREATE TABLE " + tableName + "(\r\n");
-            string[] arr = content.Split('|');
-            for (int i = 0; i < arr.Length; i++)
-            {
-                string item = arr[i];
-                if (!string.IsNullOrEmpty(item))
-                {
-                    if (item.Contains('?'))
-                    {
-                        string[] arr_children = item.Split('?');
-                        for (int j = 0; j < arr_children.Length; j++)
-                        {
-                            switch (j)
-                            {
-                                case 0://字段名
-                                    sb.Append(arr_children[j] + " ");
-                                    break;
-
-                                case 1://类型
-                                    sb.Append(arr_children[j] + " ");
-                                    break;
-
-                                case 2://非空
-                                    sb.Append(arr_children[j] + " ");
-                                    break;
-
-                                case 3://主键
-                                    sb.Append(arr_children[j] + " ");
-                                    break;
-
-                                case 4://自增长
-                                    sb.Append(arr_children[j] + " ");
-                                    break;
-
-                                default:
-                                    break;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        sb.Append(item + " [nvarchar](100) null]");
-                    }
-                    if (i == arr.Length - 1)
-                    {
-                        sb.Append("\r\n");
-                    }
-                    else
-                    {
-                        sb.Append(",\r\n");
-                    }
-                }
-            }
-            sb.Append(")");
-
-            richTextBox5.Text = sb.ToString();
-        }
-
-        /// <summary>
         /// 替换
         /// </summary>
         /// <param name="sender"></param>
@@ -328,74 +197,10 @@ where     d.name=" + configModel.MARK + "a order by     a.id,a.colorder";
         }
 
         /// <summary>
-        /// 生成拼接的代码
+        /// 格式化字符串
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void button5_Click(object sender, EventArgs e)
-        {
-            string str = textBox8.Text.Trim() + ".Append(@\"" + richTextBox10.Text.Replace('"', '\'').Replace("<%=", "\"+").Replace("%>", "+@\"") + "\");";
-            richTextBox9.Text = str;
-        }
-
-
-        private void button7_Click(object sender, EventArgs e)
-        {
-            richTextBox13.Text = richTextBox14.Text
-                .Replace("J_Length_IN", "LengthIN.ToString()")
-                .Replace("L_Width_IN", "WidthIN.ToString()")
-                .Replace("N_Height_IN", "HeightIN.ToString()")
-                .Replace("A_VendorItemNo", "No")
-                .Replace("F_ProductDes", "Desc")
-                .Replace("BZ_PackingType", "PackingMannerEnName")
-                .Replace("AH_OutterRatio", "OuterBoxRate.ToString()")
-                .Replace("X_InnerRatio", "InnerBoxRate.ToString()")
-                .Replace("AO_Volumn", "OuterVolume.ToString()")
-                .Replace("BB_FOBChinaPort", "Cost.ToString()")
-                .Replace("AU_ShippingPort", "PortEnName.ToString()")
-                .Replace("BY_UPC", "UPC")
-                .Replace("CC_Remarks", "Remarks")
-                .Replace("BL_HTSCode", "HTS")
-                .Replace("CA_MaterialComposition", "IngredientEn")
-                .Replace("A_VendorItemNo", "No")
-                .Replace("CB_MOQ", "MOQEn.ToString()")
-                .Replace("AJ_OutterLength_IN", "OuterLengthIN.ToString()")
-                .Replace("AL_OutterWidth_IN", "OuterWidthIN.ToString()")
-                .Replace("AN_OutterHeight_IN", "OuterHeightIN.ToString()")
-                .Replace("BM_DutyRate", "DutyPercent.ToString()")
-                .Replace("P_LBS", "WeightLBS.ToString()")
-                .Replace("BE_FOBUS", "FOBUS.ToString()")
-                .Replace("BO_FreightRate", "Freight.ToString()")
-                .Replace("BV_Retail", "Retail.ToString()")
-
-                .Replace("S_PDQLength_IN", "PDQLengthIN.ToString()")
-                .Replace("U_PDQWidth_IN", "PDQWidthIN.ToString()")
-                .Replace("W_PDQHeight_IN", "PDQHeightIN.ToString()")
-                .Replace("AR_GrossWeightLBS", "OuterWeightGrossLBS")
-                .Replace("Z_InnerLength_IN", "InnerLengthIN.ToString()")
-                .Replace("AB_InnerWidth_IN", "InnerWidthIN.ToString()")
-                .Replace("AD_InnerHeight_IN", "InnerHeightIN.ToString()")
-
-                .Replace("H_Style", "StyleName")
-                .Replace("AQ_GrossWeight", "OuterWeightGross.ToString()")
-                .Replace("AS_NetWeight", "OuterWeightNet.ToString()")
-                .Replace("AI_OutterLength_CM", "OuterLength.ToString()")
-                .Replace("AK_OutterWidth_CM", "OuterWidth.ToString()")
-                .Replace("AN_OutterHeight_IN", "OuterHeight.ToString()")
-                .Replace("I_Length_CM", "Length.ToString()")
-                .Replace("K_Width_CM", "Width.ToString()")
-                .Replace("M_Height_CM", "Height.ToString()")
-                .Replace("BG_DDP", "DDP.ToString()")
-                .Replace("BW_SRP", "Retail.ToString()")
-                .Replace("D_Manufactor", "FactoryName")
-
-                .Replace("NPOIUtil.", "MakerExcel.")
-                .Replace("Path.Combine(this.txtImagePath.Text, quote.No + \".jpg\")", " quote.Image");
-            ;
-
-            //.ToString()
-        }
-
         private void button8_Click(object sender, EventArgs e)
         {
             string str = richTextBox16.Text;
@@ -449,326 +254,11 @@ where     d.name=" + configModel.MARK + "a order by     a.id,a.colorder";
             return str;
         }
 
-        //选择Excel文件
-        private void txtFilePath_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog file = new OpenFileDialog();
-            file.Filter = "Excel|*.xls";//*.xls;
-            file.ShowDialog();
-            if (!string.IsNullOrWhiteSpace(file.FileName))
-            {
-                this.txtFilePath.Text = file.FileName;
-            }
-        }
-
-        //生成excel
-        private void btnGen_Click(object sender, EventArgs e)
-        {
-            if (this.txtFilePath.Text == "")
-            {
-                MessageBox.Show("请先选择Excel路径");
-                return;
-            }
-
-            List<string> list_str = new List<string>();
-
-            HSSFWorkbook workbook;
-            using (FileStream file = new FileStream(this.txtFilePath.Text, FileMode.Open, FileAccess.Read))
-            {
-                workbook = new HSSFWorkbook(file);
-                file.Close();
-            }
-            var sheet = workbook.GetSheetAt(0);
-
-            for (int i = sheet.FirstRowNum; i <= sheet.LastRowNum; i++)
-            {
-                var row = sheet.GetRow(i);
-                if (row == null) continue;
-
-                for (int j = 0; j < 7; j++)
-                {
-                    var cell = row.GetCell(j);
-                    if (cell == null) continue;
-
-                    string str = cell.ToString().Trim();
-                    if (string.IsNullOrEmpty(str))
-                    {
-                        continue;
-                    }
-                    list_str.Add(str);
-                }
-            }
-
-            //按照格式生成文档
-            Generate(list_str);
-
-            this.btnOpen.Visible = true;
-            this.lblResult.Text = "成功！请点击打开按钮，生成的.xls";
-            this.lblResult.ForeColor = Color.Green;
-        }
-
-        private void Generate(List<string> list_str)
-        {
-            IWorkbook workbook = new HSSFWorkbook();
-
-            if (!Directory.Exists("Data"))
-            {
-                Directory.CreateDirectory("Data");
-            }
-
-            using (FileStream file = new FileStream(txtFilePath.Text, FileMode.Open, FileAccess.Read))
-            {
-                workbook = new HSSFWorkbook(file);
-                file.Close();
-            }
-
-            int rowCount = 0;
-            if (list_str != null && list_str.Count > 0)
-            {
-                rowCount = list_str.Count / 7;
-            }
-
-            if (workbook.NumberOfSheets == 1)
-            {
-                workbook.CreateSheet("生成的Sheet");
-            }
-            ISheet sheet = (HSSFSheet)workbook.GetSheetAt(1);
-
-            //ISheet newSheet = sheet.CopySheet("生成的Sheet", false);
-            //newSheet.SetActive(true);
-
-            //for (int i = 0; i < newSheet.LastRowNum + 1; i++)
-            //{
-            //    newSheet.RemoveRow(newSheet.GetRow(i));
-            //}
-
-            int index = 0;
-            for (int i = 0; i < rowCount; i++)//行
-            {
-                for (int j = 0; j < 7; j++)//列
-                {
-                    ExcelHelper.SetCellValue(sheet, i, j, list_str[index]);
-                    index++;
-                }
-            }
-
-            FileStream swQuoteSheet = File.OpenWrite("Data\\生成的.xls");
-            workbook.Write(swQuoteSheet);
-            swQuoteSheet.Close();
-        }
-
-        private void btnOpen_Click(object sender, EventArgs e)
-        {
-            System.Diagnostics.Process.Start(Path.Combine(Application.StartupPath, "Data"));
-        }
-
         /// <summary>
-        /// 选择文件夹
+        /// 通过model生成Excel
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void textBox17_Click(object sender, EventArgs e)
-        {
-            FolderBrowserDialog dialog = new FolderBrowserDialog();
-            dialog.Description = "请选择文件路径";
-            if (dialog.ShowDialog() == DialogResult.OK)
-            {
-                if (!string.IsNullOrWhiteSpace(dialog.SelectedPath))
-                {
-                    textBox17.Text = dialog.SelectedPath;
-                }
-            }
-        }
-
-        private void button9_Click(object sender, EventArgs e)
-        {
-            timer1.Start();
-
-            //label37.Text = "暂时没内容";
-            var dir = textBox17.Text;
-            if (dir == "")
-            {
-                MessageBox.Show("请先选择文件夹路径");
-                return;
-            }
-            List<GlitzhomeOrder> listModel = new List<CodeHelper.GlitzhomeOrder>();
-
-            foreach (string filePath in System.IO.Directory.GetFiles(dir, "*.xlsx"))
-            {
-                string fileName = "";
-                using (FileStream file = new FileStream(filePath, FileMode.Open, FileAccess.Read))
-                {
-                    XSSFWorkbook workbook;
-                    workbook = new XSSFWorkbook(file);
-                    fileName = file.Name;
-                    file.Close();
-
-                    var sheet = workbook.GetSheetAt(0);
-
-                    for (int i = sheet.FirstRowNum; i <= sheet.LastRowNum; i++)
-                    {
-                        var row = sheet.GetRow(i);
-                        if (row == null)
-                        {
-                            continue;
-                        }
-
-                        GlitzhomeOrder model = new GlitzhomeOrder();
-                        model.orderid = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('A'));
-
-                        if (string.IsNullOrEmpty(model.orderid))
-                        {
-                            continue;
-                        }
-                        else if (model.orderid == "orderid")
-                        {
-                            continue;
-                        }
-
-                        model.clientpo = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('B'));
-                        model.shipping_instructions = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('C'));
-                        model.comments = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('D'));
-                        model.start_ship_date_value = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('E'));
-                        model.orddate = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('F'));
-                        model.ship_complete = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('G'));
-                        model.shipMethod = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('H'));
-                        model.alternateid = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('I'));
-                        model.ship2name = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('J'));
-                        model.ship2attention = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('K'));
-                        model.ship2address1 = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('L'));
-                        model.ship2address2 = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('M'));
-                        model.ship2address3 = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('N'));
-                        model.ship2city = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('O'));
-                        model.ship2state = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('P'));
-                        model.ship2zip = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('Q'));
-                        model.ship2country = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('R'));
-                        model.ship2isresidential = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('S'));
-                        model.ship2phone = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('T'));
-                        model.ship2email = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('U'));
-                        model.carrier = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('V'));
-                        model.weight = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('W'));
-                        model.num_boxes = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('X'));
-                        model.length = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('Y'));
-                        model.width = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('Z'));
-
-                        model.height = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('A', 'A'));
-                        model.pakage_type = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('B', 'A'));
-                        model.billingoption = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('C', 'A'));
-                        model.ref1 = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('D', 'A'));
-                        model.ref2 = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('E', 'A'));
-                        model.ref3 = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('F', 'A'));
-                        model.ref4 = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('G', 'A'));
-                        model.ref5 = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('H', 'A'));
-                        model.ref6 = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('I', 'A'));
-                        model.tp_accnt = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('J', 'A'));
-                        model.billAddr1 = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('K', 'A'));
-                        model.billAddr2 = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('L', 'A'));
-                        model.billname = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('M', 'A'));
-                        model.billAttention = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('N', 'A'));
-                        model.billCity = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('O', 'A'));
-                        model.billCountry = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('P', 'A'));
-                        model.billPhone = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('Q', 'A'));
-                        model.billState = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('R', 'A'));
-                        model.billZip = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('S', 'A'));
-                        model.fromadd1 = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('T', 'A'));
-                        model.fromcity = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('U', 'A'));
-                        model.fromstate = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('V', 'A'));
-                        model.fromzip = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('W', 'A'));
-                        model.skued = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('X', 'A'));
-                        model.clientskued = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('Y', 'A'));
-                        model.qtyed = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('Z', 'A'));
-
-                        model.alt_nameed = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('A', 'B'));
-                        model.descriptioned = ExcelHelper.GetCellValue(workbook, sheet, i, ExcelHelper.GetNumByChar('B', 'B'));
-
-                        model.FileName = fileName;
-                        model.CreateDate = DateTime.Now;
-
-                        listModel.Add(model);
-                    }
-                }
-            }
-
-            if (listModel.Count > 0)
-            {
-                try
-                {
-                    using (MyDBEntities context = new MyDBEntities())
-                    {
-                        context.GlitzhomeOrders.AddRange(listModel);
-                        int i = context.SaveChanges();
-                        if (i > 0)
-                        {
-                            timer1.Stop();
-
-                            MessageBox.Show("成功导入了" + i + "条数据！去数据库看看。");
-
-                            label37.Text = "成功导入了" + i + "条数据！去数据库看看。";
-                            label37.ForeColor = Color.Green;
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.Message);
-                }
-            }
-        }
-
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            int time = int.Parse(label39.Text.ToString()) + 1;
-            label39.Text = time.ToString();
-        }
-
-        private void label41_Click(object sender, EventArgs e)
-        {
-        }
-
-        private void textBox19_TextChanged(object sender, EventArgs e)
-        {
-        }
-
-        private void button10_Click(object sender, EventArgs e)
-        {
-            //<th data-options="field:'OuterBoxRate',width:100,align:'center'">外箱率</th>
-            //{ field: 'OuterBoxRate',width: 80,align: 'center',title: 'Case Pack'},
-
-            string str = richTextBox18.Text;
-
-            str = str.Replace("\n", "^");
-            string[] arr = str.Split('^');
-
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < arr.Length; i++)
-            {
-                string item = arr[i];
-                if (item.Contains("<th data-options=") || item.Contains("</th>"))
-                {
-                    string temp = item.Replace("<th data-options=\"", "{ ")
-                        .Replace("'\">", ",title: '")
-                        .Replace(",formatter:productNoFormatter\">", ",title: '")
-                        .Replace("</th>", "'},")
-                        .Replace("\">", "")
-                        .Replace("align:'left,title", "align:'left',title")
-                        .Replace("align:'center,title: '", "align:'center',title: '")
-                        .Replace("align:'center,title: '", "align:'center',title: '")
-                        .Replace(",hidden:true'}", ",hidden:true}")
-                        .Replace(",editor:{type:'validatebox'}", ",editor:{type:'validatebox'},title: '")
-                        .Replace(",options:{precision:0}}", ",options:{precision:0}},title: '")
-                        .Replace(",options:{required:true,validType:['integer']}}", ",options:{required:true,validType:['integer']}},title: '")
-                        .Replace(",editor:{type:'validatebox',options:{required:true}}", ",editor:{type:'validatebox',options:{required:true}},title: '")
-                        .Trim();
-                    sb.Append(temp + "\r\n");
-                }
-                else if (i > 0 && arr[i - 1].Contains("formatter"))
-                {
-                    sb.Append(item + "\r\n");
-                }
-            }
-            richTextBox17.Text = sb.ToString();
-        }
-
         private void button11_Click(object sender, EventArgs e)
         {
             try
@@ -862,105 +352,21 @@ where     d.name=" + configModel.MARK + "a order by     a.id,a.colorder";
             }
         }
 
+        /// <summary>
+        /// 打开文件夹
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button12_Click(object sender, EventArgs e)
         {
             System.Diagnostics.Process.Start(Path.Combine(Application.StartupPath, "Data"));
         }
 
-        private void txtFilePath2_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog file = new OpenFileDialog();
-            file.Filter = "Excel|*.xls";//*.xls;
-            file.ShowDialog();
-            if (!string.IsNullOrWhiteSpace(file.FileName))
-            {
-                this.txtFilePath2.Text = file.FileName;
-            }
-        }
-
-        private void btnGen2_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (this.txtFilePath2.Text == "")
-                {
-                    MessageBox.Show("请先选择Excel路径");
-                    return;
-                }
-
-                HSSFWorkbook workbook;
-                using (FileStream file = new FileStream(this.txtFilePath2.Text, FileMode.Open, FileAccess.Read))
-                {
-                    workbook = new HSSFWorkbook(file);
-                    file.Close();
-                }
-                var sheet = workbook.GetSheetAt(0);
-
-                List<DTModel> listModel = new List<DTModel>();
-                for (int i = sheet.FirstRowNum; i <= sheet.LastRowNum; i++)
-                {
-                    var row = sheet.GetRow(i);
-                    if (row == null) continue;
-
-                    var cell = row.GetCell(3);
-                    if (cell == null) continue;
-
-                    string str = cell.ToString().Trim();
-                    string desc = "";
-                    if (!string.IsNullOrEmpty(str))
-                    {
-                        var cellDesc = row.GetCell(3);
-                        if (cellDesc != null)
-                        {
-                            desc = row.GetCell(4).ToString().Trim();
-                        }
-
-                        listModel.Add(new DTModel()
-                        {
-                            Name = str,
-                            Desc = desc,
-                        });
-                    }
-                }
-                List<DTModel> listContains = new List<DTModel>();//包含的
-                for (int i = sheet.FirstRowNum; i <= sheet.LastRowNum; i++)
-                {
-                    var row = sheet.GetRow(i);
-                    if (row == null) continue;
-
-                    var cell = row.GetCell(0);
-                    if (cell == null) continue;
-
-                    string str = cell.ToString().Trim();
-
-                    var query = listModel.Where(d => d.Name == str);
-                    if (query.Count() > 0)
-                    {
-                        ExcelHelper.SetCellValue(sheet, i, 6, query.FirstOrDefault().Name);
-                        ExcelHelper.SetCellValue(sheet, i, 7, query.FirstOrDefault().Desc);
-
-                        listContains.Add(query.FirstOrDefault());
-                    }
-                }
-
-                var listNotContains = listModel.Except(listContains).ToList();
-                for (int i = 0; i < listNotContains.Count; i++)
-                {
-                    ExcelHelper.SetCellValue(sheet, i, 9, listNotContains[i].Name);
-                    ExcelHelper.SetCellValue(sheet, i, 10, listNotContains[i].Desc);
-                }
-
-                FileStream swQuoteSheet = File.OpenWrite("Data\\Temp模板" + DateTime.Now.ToString("yyyy-MM-dd HHmmss") + ".xls");
-                workbook.Write(swQuoteSheet);
-                swQuoteSheet.Close();
-                MessageBox.Show("Excel生成成功！");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
+        /// <summary>
+        /// Excel文件 打开对话框
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void txtFilePath3_Click(object sender, EventArgs e)
         {
             OpenFileDialog file = new OpenFileDialog();
@@ -972,6 +378,11 @@ where     d.name=" + configModel.MARK + "a order by     a.id,a.colorder";
             }
         }
 
+        /// <summary>
+        /// 根据excel生成sql脚本——生成
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnGen3_Click(object sender, EventArgs e)
         {
             if (this.txtFilePath3.Text == "")
@@ -979,7 +390,6 @@ where     d.name=" + configModel.MARK + "a order by     a.id,a.colorder";
                 MessageBox.Show("请先选择Excel路径");
                 return;
             }
-
 
             HSSFWorkbook workbook;
             using (FileStream file = new FileStream(this.txtFilePath3.Text, FileMode.Open, FileAccess.Read))
@@ -1049,7 +459,6 @@ where     d.name=" + configModel.MARK + "a order by     a.id,a.colorder";
                 if (!string.IsNullOrEmpty(model.TableName) && !string.IsNullOrEmpty(model.Name))
                 {
                     listModel.Add(model);
-
                 }
             }
 
@@ -1078,14 +487,12 @@ GO";
                     {
                         sb1.AppendLine(string.Format(" [{0}] {1} {2},", item2.Name, item2.DataType, item2.IsNull));
 
-
                         if (!string.IsNullOrEmpty(item2.DefaultValue))
                         {
                             sb2.AppendLine(string.Format("ALTER TABLE [dbo].[{0}] ADD  DEFAULT (({1})) FOR [{2}]", item2.TableName, item2.DefaultValue, item2.Name));
                             sb2.AppendLine("GO");
                             sb2.AppendLine();
                         }
-
 
                         sb3.AppendLine(string.Format("EXEC sys.sp_addextendedproperty @name=N'MS_Description', @value=N'{0}' , @level0type=N'SCHEMA',@level0name=N'dbo', @level1type=N'TABLE',@level1name=N'{1}', @level2type=N'COLUMN',@level2name=N'{2}'", item2.Desc, item2.TableName, item2.Name));
                         sb3.AppendLine("GO");
@@ -1095,14 +502,12 @@ GO";
                         {
                             primaryKey = item2.Name;
                         }
-
                     }
-
 
                     string str = string.Format(@"
 CREATE TABLE [dbo].[{0}](
 	{1}
- CONSTRAINT [{2}] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [{2}] PRIMARY KEY CLUSTERED
 (
 	[{3}] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
@@ -1119,12 +524,15 @@ GO
 
                 richTextBox19.Text = sb.ToString();
             }
-
         }
 
+        /// <summary>
+        /// 获取文件夹的文件列表
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void textBox9_Click(object sender, EventArgs e)
         {
-
             //richTextBox11.Text = GetAllFiles("C:\\Users\\admi\\Desktop\\新建文件夹", 0);
             //return;
             FolderBrowserDialog dialog = new FolderBrowserDialog();
@@ -1134,7 +542,6 @@ GO
                 if (!string.IsNullOrWhiteSpace(selectedPath))
                 {
                     textBox9.Text = selectedPath;
-
 
                     DirectoryInfo di = new DirectoryInfo(selectedPath);
 
@@ -1150,62 +557,16 @@ GO
                         thisFolder = "----文件夹：" + di.FullName + "\r\n";
                     }
 
-                    richTextBox11.Text = thisFolder + GetAllFiles(selectedPath, ParentPath, 0);
+                    richTextBox11.Text = thisFolder + CommonCode.GetAllFiles(selectedPath, ParentPath, 0);
                 }
             }
         }
 
-        public static string GetAllFiles(string TheFolder, string ParentPath, int Index)
-        {
-            StringBuilder sb = new StringBuilder();
-            if (Directory.Exists(TheFolder))
-            {
-                DirectoryInfo di = new DirectoryInfo(TheFolder);
-                if (di.GetFiles() != null && di.GetFiles().Length > 0)
-                {
-                    int i = 1;
-                    int fileCount = di.GetFiles().Count();
-                    foreach (FileInfo item2 in di.GetFiles().OrderBy(d => d.Name))//遍历文件
-                    {
-                        sb.AppendLine(string.Format("{0} {1} ({2})", i.ToString().PadLeft(fileCount.ToString().Length, '0'), item2.Name, GetFileSize(item2.Length)));
-                        i++;
-                    }
-                }
-
-                foreach (DirectoryInfo item in di.GetDirectories().OrderBy(d => d.Name))//遍历文件夹
-                {
-                    sb.AppendLine();
-                    sb.AppendLine("----文件夹：" + (ParentPath == "" ? item.FullName : item.FullName.Replace(ParentPath, "")));
-                    sb.Append(GetAllFiles(item.FullName, ParentPath, Index++));
-                }
-            }
-            return sb.ToString();
-        }
-
-        public static string GetEmptyString(int length)
-        {
-            StringBuilder sb = new StringBuilder();
-            for (int i = 0; i < length; i++)
-            {
-                sb.Append(" ");
-            }
-            return sb.ToString();
-        }
-
-        public static string GetFileSize(long length)
-        {
-            StringBuilder sb = new StringBuilder();
-            if (length < 1024 * 1024)
-            {
-                return Math.Round(length / 1024d, 2) + " KB";
-            }
-            else
-            {
-
-                return Math.Round(length / 1024d / 1024d, 2) + " MB";
-            }
-        }
-
+        /// <summary>
+        /// 生成U8任务
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void button6_Click(object sender, EventArgs e)
         {
             StringBuilder sb = new StringBuilder();
@@ -1262,7 +623,6 @@ GO
   __2,";
             return string.Format(str, enumName, enumDesc, textBox11.Text, cronExpression, textBox19.Text, textBox20.Text, comboBox2.Text, comboBox3.Text, textBox22.Text, textBox23.Text, methodType, comboBox4.Text)
                 .Replace("__1", "{").Replace("__2", "}").Replace("'", "\"");
-
         }
 
         private string GetJob_Method(string enumName, string enumDesc, string methodType)
@@ -1286,10 +646,15 @@ GO
             return string.Format(str, enumName, enumDesc, methodType)
                 .Replace("__1", "{").Replace("__2", "}").Replace("'", "\"");
         }
+
         private string GetJob_Rejister(string enumName, string enumDesc, string methodType)
         {
             string str = @"builder.Register(x => new {0}_{2}());";
             return string.Format(str, enumName, enumDesc, methodType);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
         }
     }
 }

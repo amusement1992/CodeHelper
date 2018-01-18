@@ -100,7 +100,6 @@
     <Compile Include="GlitzhomeOrder.cs">
       <DependentUpon>EF.tt</DependentUpon>
     </Compile>
-    <Compile Include="GlitzhomeOrder_Model.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SqlHelper.cs" />
