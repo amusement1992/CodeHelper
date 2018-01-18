@@ -114,6 +114,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.button3 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.tabPage9 = new System.Windows.Forms.TabPage();
@@ -124,7 +125,6 @@
             this.txtFilePath3 = new System.Windows.Forms.TextBox();
             this.label48 = new System.Windows.Forms.Label();
             this.替换内容 = new System.Windows.Forms.TabControl();
-            this.button3 = new System.Windows.Forms.Button();
             this.tabPage12.SuspendLayout();
             this.tabPage6.SuspendLayout();
             this.groupBox5.SuspendLayout();
@@ -928,8 +928,8 @@
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(839, 21);
             this.textBox2.TabIndex = 15;
-            this.textBox2.Text = "Data Source=192.168.117.144;Initial Catalog=Group.ERP;user id=test;password=t#@!$" +
-    "%;\n";
+            this.textBox2.Text = "Data Source=192.168.117.189;Initial Catalog=Group.ERP;user id=test;password=t#@!$" +
+    "%;\r\n";
             // 
             // textBox3
             // 
@@ -974,6 +974,16 @@
             this.label1.Size = new System.Drawing.Size(77, 12);
             this.label1.TabIndex = 13;
             this.label1.Text = "生成的内容：";
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(414, 94);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(292, 33);
+            this.button3.TabIndex = 11;
+            this.button3.Text = "生成model代码";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button2
             // 
@@ -1066,8 +1076,8 @@
             // 
             // 替换内容
             // 
-            this.替换内容.Controls.Add(this.tabPage9);
             this.替换内容.Controls.Add(this.tabPage1);
+            this.替换内容.Controls.Add(this.tabPage9);
             this.替换内容.Controls.Add(this.tabPage3);
             this.替换内容.Controls.Add(this.tabPage4);
             this.替换内容.Controls.Add(this.tabPage8);
@@ -1079,16 +1089,6 @@
             this.替换内容.SelectedIndex = 0;
             this.替换内容.Size = new System.Drawing.Size(1123, 660);
             this.替换内容.TabIndex = 29;
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(414, 94);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(292, 33);
-            this.button3.TabIndex = 11;
-            this.button3.Text = "生成model文件";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // Form1
             // 

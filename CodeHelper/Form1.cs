@@ -435,7 +435,7 @@ where     d.name=" + configModel.MARK + "a order by     a.id,a.colorder";
                             break;
 
                         case 5://是否允许Null
-                            model.IsNull = cellValue == "Checked" ? "NULL" : "NOT NULL";
+                            model.IsNull = cellValue == "Checked";
                             break;
 
                         case 6://列名说明
@@ -485,7 +485,7 @@ GO";
                     StringBuilder sb3 = new StringBuilder();
                     foreach (var item2 in item)
                     {
-                        sb1.AppendLine(string.Format(" [{0}] {1} {2},", item2.Name, item2.DataType, item2.IsNull));
+                        sb1.AppendLine(string.Format(" [{0}] {1} {2},", item2.Name, item2.DataType, item2.IsNull ? "NULL" : "NOT NULL"));
 
                         if (!string.IsNullOrEmpty(item2.DefaultValue))
                         {
@@ -655,6 +655,8 @@ GO
 
         private void button3_Click(object sender, EventArgs e)
         {
+            var list = CommonCode.DataBaseToListModel_T4(textBox2.Text, comboBox1.Text).ToList();
+            richTextBox3.Text = CommonCode.CreateModel(list, "Model", "Model", "    [Serializable][DataContract]", "        [DataMember]");
         }
     }
 }

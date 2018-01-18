@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace CodeHelper
 {
+    /// <summary>
+    /// 数据表模型
+    /// </summary>
+    [Serializable]
     public class DTModel
     {
         /// <summary>
@@ -41,14 +45,21 @@ namespace CodeHelper
         /// <summary>
         /// 是否允许为NULL
         /// </summary>
-        public string IsNull { get; set; }
+        public bool IsNull { get; set; }
+
         /// <summary>
         /// 是否是主键
         /// </summary>
-        public bool IsPK { get;   set; }
+        public bool IsPK { get; set; }
+
         /// <summary>
         /// 默认值
         /// </summary>
         public string DefaultValue { get; set; }
+
+        /// <summary>
+        /// 是否自增长
+        /// </summary>
+        public bool IsIdentity { get; set; }
     }
 }
